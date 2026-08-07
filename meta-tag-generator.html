@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meta Tag Generator — ToolYard</title>
+ <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/images/site.webmanifest">
+<meta name="description" content="Build title, description, Open Graph and Twitter Card meta tags with a live search and social preview — ready to paste into your <head>.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="header-box"></div>
+
+<main class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item"><a href="index.html#categories">SEO</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Meta Tag Generator</li>
+    </ol>
+  </nav>
+
+  <div class="d-flex align-items-start gap-3 pb-4 mb-4 border-bottom">
+    <div class="tool-hero__icon flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="6"/><path d="M20 20l-5.5-5.5" stroke-linecap="round"/></svg>
+    </div>
+    <div>
+      <h1 class="mb-1">Meta Tag Generator</h1>
+      <p class="mb-0">Fill in the fields below to build title, description, Open Graph and Twitter Card tags — with a live search-result and social-card preview — ready to paste into your <code>&lt;head&gt;</code>.</p>
+    </div>
+  </div>
+
+  <!-- ============ PAGE BASICS ============ -->
+  <section class="tool-panel mb-4">
+    <h3>Page basics</h3>
+    <div class="row g-3">
+      <div class="col-md-8">
+        <label for="metaTitle" class="form-label">Page title</label>
+        <input type="text" id="metaTitle" class="form-control" maxlength="70" placeholder="ToolYard — every tool, one workbench" value="ToolYard — every tool, one workbench">
+        <div class="char-hint"><span id="titleCharCount">0</span> / 60 recommended</div>
+      </div>
+      <div class="col-md-4">
+        <label for="metaCanonical" class="form-label">Canonical URL</label>
+        <input type="text" id="metaCanonical" class="form-control" placeholder="https://example.com/page" value="https://toolyard.com">
+      </div>
+      <div class="col-12">
+        <label for="metaDescription" class="form-label">Meta description</label>
+        <textarea id="metaDescription" class="form-control" rows="2" maxlength="200" placeholder="A short, compelling summary of the page.">Free online tools for PDFs, images, code, text, color and more. No sign-up, no clutter — just the tool you need.</textarea>
+        <div class="char-hint"><span id="descCharCount">0</span> / 160 recommended</div>
+      </div>
+      <div class="col-md-4">
+        <label for="metaAuthor" class="form-label">Author <span class="opt-tag">optional</span></label>
+        <input type="text" id="metaAuthor" class="form-control" placeholder="Your name or company">
+      </div>
+      <div class="col-md-4">
+        <label for="metaKeywords" class="form-label">Keywords <span class="opt-tag">optional, comma-separated</span></label>
+        <input type="text" id="metaKeywords" class="form-control" placeholder="pdf tools, image resizer, json formatter">
+      </div>
+      <div class="col-md-4">
+        <label for="metaRobots" class="form-label">Robots</label>
+        <select id="metaRobots" class="form-select">
+          <option value="index, follow" selected>index, follow (default)</option>
+          <option value="noindex, follow">noindex, follow</option>
+          <option value="index, nofollow">index, nofollow</option>
+          <option value="noindex, nofollow">noindex, nofollow</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OPEN GRAPH ============ -->
+  <section class="tool-panel mb-4">
+    <h3>Open Graph <span class="panel-subtitle">— Facebook, LinkedIn, Slack, etc.</span></h3>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label for="ogType" class="form-label">Type</label>
+        <select id="ogType" class="form-select">
+          <option value="website" selected>website</option>
+          <option value="article">article</option>
+          <option value="product">product</option>
+          <option value="profile">profile</option>
+          <option value="video.other">video</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="ogSiteName" class="form-label">Site name <span class="opt-tag">optional</span></label>
+        <input type="text" id="ogSiteName" class="form-control" placeholder="ToolYard" value="ToolYard">
+      </div>
+      <div class="col-md-4">
+        <label for="ogLocale" class="form-label">Locale</label>
+        <input type="text" id="ogLocale" class="form-control" placeholder="en_US" value="en_US">
+      </div>
+
+      <div class="col-md-6">
+        <div class="d-flex align-items-center justify-content-between">
+          <label for="ogTitle" class="form-label mb-1">og:title</label>
+          <button class="mini-btn" type="button" data-copy-from="metaTitle" data-copy-to="ogTitle">Copy from title</button>
+        </div>
+        <input type="text" id="ogTitle" class="form-control" placeholder="Same as page title">
+      </div>
+      <div class="col-md-6">
+        <label for="ogUrl" class="form-label">og:url</label>
+        <div class="d-flex align-items-center justify-content-between">
+          <span></span>
+          <button class="mini-btn" type="button" data-copy-from="metaCanonical" data-copy-to="ogUrl">Copy from canonical</button>
+        </div>
+        <input type="text" id="ogUrl" class="form-control" placeholder="Same as canonical URL">
+      </div>
+
+      <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between">
+          <label for="ogDescription" class="form-label mb-1">og:description</label>
+          <button class="mini-btn" type="button" data-copy-from="metaDescription" data-copy-to="ogDescription">Copy from description</button>
+        </div>
+        <textarea id="ogDescription" class="form-control" rows="2" placeholder="Same as meta description"></textarea>
+      </div>
+
+      <div class="col-12">
+        <label for="ogImage" class="form-label">og:image URL</label>
+        <input type="text" id="ogImage" class="form-control" placeholder="https://example.com/og-image.jpg">
+        <div class="char-hint">Recommended size: 1200 × 630 px</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TWITTER CARD ============ -->
+  <section class="tool-panel mb-4">
+    <h3>Twitter Card <span class="panel-subtitle">— X / Twitter</span></h3>
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label for="twCard" class="form-label">Card type</label>
+        <select id="twCard" class="form-select">
+          <option value="summary_large_image" selected>summary_large_image</option>
+          <option value="summary">summary</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="twSite" class="form-label">Site handle <span class="opt-tag">optional</span></label>
+        <input type="text" id="twSite" class="form-control" placeholder="@toolyard">
+      </div>
+      <div class="col-md-4">
+        <label for="twCreator" class="form-label">Creator handle <span class="opt-tag">optional</span></label>
+        <input type="text" id="twCreator" class="form-control" placeholder="@yourhandle">
+      </div>
+
+      <div class="col-md-6">
+        <div class="d-flex align-items-center justify-content-between">
+          <label for="twTitle" class="form-label mb-1">twitter:title</label>
+          <button class="mini-btn" type="button" data-copy-from="ogTitle" data-copy-to="twTitle" data-copy-fallback="metaTitle">Copy from og:title</button>
+        </div>
+        <input type="text" id="twTitle" class="form-control" placeholder="Same as og:title">
+      </div>
+      <div class="col-md-6">
+        <div class="d-flex align-items-center justify-content-between">
+          <label for="twImage" class="form-label mb-1">twitter:image</label>
+          <button class="mini-btn" type="button" data-copy-from="ogImage" data-copy-to="twImage">Copy from og:image</button>
+        </div>
+        <input type="text" id="twImage" class="form-control" placeholder="Same as og:image">
+      </div>
+
+      <div class="col-12">
+        <div class="d-flex align-items-center justify-content-between">
+          <label for="twDescription" class="form-label mb-1">twitter:description</label>
+          <button class="mini-btn" type="button" data-copy-from="ogDescription" data-copy-to="twDescription" data-copy-fallback="metaDescription">Copy from og:description</button>
+        </div>
+        <textarea id="twDescription" class="form-control" rows="2" placeholder="Same as og:description"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PREVIEW ============ -->
+  <section class="tool-panel mb-4">
+    <h3>Live preview</h3>
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="preview-label">Google search result</div>
+        <div class="search-preview">
+          <div class="search-preview__url" id="prevUrl">toolyard.com</div>
+          <div class="search-preview__title" id="prevTitle">ToolYard — every tool, one workbench</div>
+          <div class="search-preview__desc" id="prevDesc">Free online tools for PDFs, images, code, text, color and more.</div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="preview-label">Social card (Facebook / LinkedIn / X)</div>
+        <div class="social-preview">
+          <div class="social-preview__image" id="prevImageWrap">
+            <img id="prevImage" alt="" style="display:none;">
+            <span id="prevImagePlaceholder">No og:image set</span>
+          </div>
+          <div class="social-preview__body">
+            <div class="social-preview__domain" id="prevSocialDomain">TOOLYARD.COM</div>
+            <div class="social-preview__title" id="prevSocialTitle">ToolYard — every tool, one workbench</div>
+            <div class="social-preview__desc" id="prevSocialDesc">Free online tools for PDFs, images, code, text, color and more.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GENERATED CODE ============ -->
+  <section class="tool-panel mb-4">
+    <div class="d-flex align-items-center justify-content-between mb-2">
+      <h3 class="mb-0">Generated code</h3>
+      <div class="d-flex gap-2">
+        <button class="mini-btn" id="copyCodeBtn" type="button">Copy</button>
+        <button class="mini-btn" id="downloadCodeBtn" type="button">Download</button>
+      </div>
+    </div>
+    <textarea class="form-control code-area" id="codeOutput" style="min-height:340px;" readonly></textarea>
+  </section>
+
+  <section class="py-3">
+    <div class="section-head mb-3">
+      <h2 style="font-size:18px;">Other SEO tools</h2>
+      <p class="mb-0">More from the same drawer.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <a class="hang-tag" href="#" data-unbuilt>🌐 Sitemap Generator</a>
+      <a class="hang-tag" href="#" data-unbuilt>🌐 Robots.txt Generator</a>
+      <a class="hang-tag" href="json-formatter.html">💻 JSON Formatter</a>
+      <a class="hang-tag" href="index.html#categories">Browse all categories →</a>
+    </div>
+  </section>
+</main>
+
+<div id="footer"></div>
+
+<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x mb-4" style="z-index:1080;">
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 4.3L2.6 18a1.9 1.9 0 0 0 1.6 2.9h15.6a1.9 1.9 0 0 0 1.6-2.9L13.7 4.3a1.9 1.9 0 0 0-3.4 0z" stroke-linejoin="round"/></svg>
+      <span data-toast-text>Message</span>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/jquery.js"></script>
+  <script src="/script.js"></script>
+             <script>
+                $(function () {
+                  $("#footer").load("/footer.html");
+                  $("#header-box").load("/header.html");
+                });
+            </script>
+<script>
+(function () {
+  "use strict";
+
+  function val(id) { return document.getElementById(id).value.trim(); }
+  function escAttr(str) {
+    return str.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function truncate(str, max) {
+    if (str.length <= max) return str;
+    return str.slice(0, max - 1).trim() + "…";
+  }
+  function hostnameOf(url) {
+    try {
+      var u = new URL(url);
+      return u.hostname.replace(/^www\./, "");
+    } catch (e) {
+      return "example.com";
+    }
+  }
+
+  var fields = [
+    "metaTitle", "metaDescription", "metaCanonical", "metaAuthor", "metaKeywords", "metaRobots",
+    "ogType", "ogSiteName", "ogLocale", "ogTitle", "ogUrl", "ogDescription", "ogImage",
+    "twCard", "twSite", "twCreator", "twTitle", "twImage", "twDescription"
+  ];
+
+  function buildAll() {
+    var title = val("metaTitle") || "Untitled page";
+    var description = val("metaDescription") || "";
+    var canonical = val("metaCanonical");
+    var author = val("metaAuthor");
+    var keywords = val("metaKeywords");
+    var robots = val("metaRobots");
+
+    var ogTitle = val("ogTitle") || title;
+    var ogUrl = val("ogUrl") || canonical;
+    var ogDescription = val("ogDescription") || description;
+    var ogImage = val("ogImage");
+    var ogType = val("ogType");
+    var ogSiteName = val("ogSiteName");
+    var ogLocale = val("ogLocale");
+
+    var twCard = val("twCard");
+    var twSite = val("twSite");
+    var twCreator = val("twCreator");
+    var twTitle = val("twTitle") || ogTitle;
+    var twDescription = val("twDescription") || ogDescription;
+    var twImage = val("twImage") || ogImage;
+
+    document.getElementById("titleCharCount").textContent = title.length;
+    document.getElementById("descCharCount").textContent = description.length;
+
+    /* ---------- build code ---------- */
+    var lines = [];
+    lines.push('<title>' + escAttr(title) + '</title>');
+    lines.push('<meta name="description" content="' + escAttr(description) + '">');
+    if (keywords) lines.push('<meta name="keywords" content="' + escAttr(keywords) + '">');
+    if (author) lines.push('<meta name="author" content="' + escAttr(author) + '">');
+    lines.push('<meta name="robots" content="' + escAttr(robots) + '">');
+    if (canonical) lines.push('<link rel="canonical" href="' + escAttr(canonical) + '">');
+    lines.push("");
+    lines.push("<!-- Open Graph -->");
+    lines.push('<meta property="og:type" content="' + escAttr(ogType) + '">');
+    lines.push('<meta property="og:title" content="' + escAttr(ogTitle) + '">');
+    lines.push('<meta property="og:description" content="' + escAttr(ogDescription) + '">');
+    if (ogUrl) lines.push('<meta property="og:url" content="' + escAttr(ogUrl) + '">');
+    if (ogImage) lines.push('<meta property="og:image" content="' + escAttr(ogImage) + '">');
+    if (ogSiteName) lines.push('<meta property="og:site_name" content="' + escAttr(ogSiteName) + '">');
+    if (ogLocale) lines.push('<meta property="og:locale" content="' + escAttr(ogLocale) + '">');
+    lines.push("");
+    lines.push("<!-- Twitter Card -->");
+    lines.push('<meta name="twitter:card" content="' + escAttr(twCard) + '">');
+    if (twSite) lines.push('<meta name="twitter:site" content="' + escAttr(twSite) + '">');
+    if (twCreator) lines.push('<meta name="twitter:creator" content="' + escAttr(twCreator) + '">');
+    lines.push('<meta name="twitter:title" content="' + escAttr(twTitle) + '">');
+    lines.push('<meta name="twitter:description" content="' + escAttr(twDescription) + '">');
+    if (twImage) lines.push('<meta name="twitter:image" content="' + escAttr(twImage) + '">');
+
+    document.getElementById("codeOutput").value = lines.join("\n");
+
+    /* ---------- previews ---------- */
+    var domain = canonical ? hostnameOf(canonical) : "example.com";
+    var pathPart = "";
+    if (canonical) {
+      try {
+        var fullUrl = /^https?:\/\//i.test(canonical) ? canonical : "https://" + canonical;
+        pathPart = new URL(fullUrl).pathname.replace(/\/$/, "");
+      } catch (e) {
+        pathPart = "";
+      }
+    }
+    document.getElementById("prevUrl").textContent = domain + pathPart;
+    document.getElementById("prevTitle").textContent = truncate(title, 60);
+    document.getElementById("prevDesc").textContent = truncate(description || "No description set yet.", 160);
+
+    document.getElementById("prevSocialDomain").textContent = domain.toUpperCase();
+    document.getElementById("prevSocialTitle").textContent = truncate(ogTitle, 70);
+    document.getElementById("prevSocialDesc").textContent = truncate(ogDescription || "No description set yet.", 120);
+
+    var img = document.getElementById("prevImage");
+    var placeholder = document.getElementById("prevImagePlaceholder");
+    if (ogImage) {
+      img.src = ogImage;
+      img.style.display = "block";
+      placeholder.style.display = "none";
+      img.onerror = function () {
+        img.style.display = "none";
+        placeholder.style.display = "flex";
+        placeholder.textContent = "Couldn't load image preview";
+      };
+    } else {
+      img.style.display = "none";
+      placeholder.style.display = "flex";
+      placeholder.textContent = "No og:image set";
+    }
+  }
+
+  fields.forEach(function (id) {
+    var el = document.getElementById(id);
+    el.addEventListener("input", buildAll);
+  });
+
+  document.querySelectorAll("[data-copy-from]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var fromId = btn.getAttribute("data-copy-from");
+      var toId = btn.getAttribute("data-copy-to");
+      var fallbackId = btn.getAttribute("data-copy-fallback");
+      var value = val(fromId) || (fallbackId ? val(fallbackId) : "");
+      document.getElementById(toId).value = value;
+      buildAll();
+    });
+  });
+
+  document.getElementById("copyCodeBtn").addEventListener("click", function () {
+    var output = document.getElementById("codeOutput");
+    if (!output.value) return;
+    output.select();
+    navigator.clipboard && navigator.clipboard.writeText(output.value);
+  });
+
+  document.getElementById("downloadCodeBtn").addEventListener("click", function () {
+    var output = document.getElementById("codeOutput");
+    if (!output.value) return;
+    var blob = new Blob([output.value], { type: "text/plain" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "meta-tags.html";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+  });
+
+  buildAll();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Color Picker — ToolYard</title>
+ <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/images/site.webmanifest">
+<meta name="description" content="Pick a color and instantly get its HEX, RGB, and HSL values, plus a set of lighter and darker shades.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="header-box"></div>
+
+<main class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item"><a href="index.html#categories">Color</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Color Picker</li>
+    </ol>
+  </nav>
+
+  <div class="d-flex align-items-start gap-3 pb-4 mb-4 border-bottom">
+    <div class="tool-hero__icon flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1.3" fill="currentColor" stroke="none"/><circle cx="13" cy="8" r="1.3" fill="currentColor" stroke="none"/><circle cx="15.5" cy="12.5" r="1.3" fill="currentColor" stroke="none"/></svg>
+    </div>
+    <div>
+      <h1 class="mb-1">Color Picker</h1>
+      <p class="mb-0">Pick a color, or type a value into any field, and everything else updates instantly — HEX, RGB, HSL, plus a row of lighter and darker shades.</p>
+    </div>
+  </div>
+
+  <section class="tool-panel mb-4">
+    <h3>Pick a color</h3>
+
+    <div class="color-picker-layout">
+
+      <div class="color-swatch-col">
+        <label class="color-swatch" for="nativeColorInput" id="colorSwatch" style="background:#f2a93b;">
+          <input type="color" id="nativeColorInput" value="#f2a93b">
+          <span class="color-swatch__hint">Click to pick</span>
+        </label>
+        <div class="d-flex flex-wrap gap-2 mt-3">
+          <button class="btn btn-outline-paper btn-sm" id="randomBtn" type="button">🎲 Random color</button>
+        </div>
+      </div>
+
+      <div class="color-fields-col">
+
+        <div class="mb-3">
+          <label for="hexInput" class="form-label">HEX</label>
+          <div class="input-group">
+            <span class="input-group-text">#</span>
+            <input type="text" id="hexInput" class="form-control" value="F2A93B" maxlength="6" autocomplete="off" spellcheck="false">
+            <button class="btn btn-outline-paper" type="button" data-copy-target="hexOutput">Copy</button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <label class="form-label mb-1">RGB</label>
+            <button class="mini-btn" type="button" data-copy-target="rgbOutput">Copy</button>
+          </div>
+          <div class="row g-2">
+            <div class="col-4">
+              <label for="rInput" class="channel-label">R</label>
+              <input type="range" id="rSlider" class="form-range channel-slider channel-slider--r" min="0" max="255" value="242">
+              <input type="number" id="rInput" class="form-control form-control-sm mt-1" min="0" max="255" value="242">
+            </div>
+            <div class="col-4">
+              <label for="gInput" class="channel-label">G</label>
+              <input type="range" id="gSlider" class="form-range channel-slider channel-slider--g" min="0" max="255" value="169">
+              <input type="number" id="gInput" class="form-control form-control-sm mt-1" min="0" max="255" value="169">
+            </div>
+            <div class="col-4">
+              <label for="bInput" class="channel-label">B</label>
+              <input type="range" id="bSlider" class="form-range channel-slider channel-slider--b" min="0" max="255" value="59">
+              <input type="number" id="bInput" class="form-control form-control-sm mt-1" min="0" max="255" value="59">
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-2">
+          <div class="d-flex align-items-center justify-content-between">
+            <label class="form-label mb-1">HSL</label>
+            <button class="mini-btn" type="button" data-copy-target="hslOutput">Copy</button>
+          </div>
+          <div class="row g-2">
+            <div class="col-4">
+              <label for="hInput" class="channel-label">H°</label>
+              <input type="range" id="hSlider" class="form-range channel-slider channel-slider--hue" min="0" max="360" value="38">
+              <input type="number" id="hInput" class="form-control form-control-sm mt-1" min="0" max="360" value="38">
+            </div>
+            <div class="col-4">
+              <label for="sInput" class="channel-label">S%</label>
+              <input type="range" id="sSlider" class="form-range channel-slider" min="0" max="100" value="87">
+              <input type="number" id="sInput" class="form-control form-control-sm mt-1" min="0" max="100" value="87">
+            </div>
+            <div class="col-4">
+              <label for="lInput" class="channel-label">L%</label>
+              <input type="range" id="lSlider" class="form-range channel-slider" min="0" max="100" value="59">
+              <input type="number" id="lInput" class="form-control form-control-sm mt-1" min="0" max="100" value="59">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <p class="error-line" id="colorError"></p>
+
+    <div class="result-block" style="display:block;">
+      <div class="row row-cols-1 row-cols-sm-3 g-3">
+        <div class="col">
+          <div class="result-stat result-stat--code">
+            <div class="lbl mb-1">HEX</div>
+            <div class="code-val" id="hexOutput">#F2A93B</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="result-stat result-stat--code">
+            <div class="lbl mb-1">RGB</div>
+            <div class="code-val" id="rgbOutput">rgb(242, 169, 59)</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="result-stat result-stat--code">
+            <div class="lbl mb-1">HSL</div>
+            <div class="code-val" id="hslOutput">hsl(38, 87%, 59%)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tool-panel mb-4">
+    <h3>Shades &amp; tints</h3>
+    <p class="panel-lede">Click any swatch to make it your current color.</p>
+    <div class="shade-row" id="shadeRow"></div>
+  </section>
+
+  <section class="py-3">
+    <div class="section-head mb-3">
+      <h2 style="font-size:18px;">Other color tools</h2>
+      <p class="mb-0">More from the same drawer.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <a class="hang-tag" href="#" data-unbuilt>🎨 Palette Generator</a>
+      <a class="hang-tag" href="#" data-unbuilt>🎨 Gradient Generator</a>
+      <a class="hang-tag" href="image-tools.html">🖼 Image Tools</a>
+      <a class="hang-tag" href="index.html#categories">Browse all categories →</a>
+    </div>
+  </section>
+</main>
+
+<div id="footer"></div>
+
+<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x mb-4" style="z-index:1080;">
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 4.3L2.6 18a1.9 1.9 0 0 0 1.6 2.9h15.6a1.9 1.9 0 0 0 1.6-2.9L13.7 4.3a1.9 1.9 0 0 0-3.4 0z" stroke-linejoin="round"/></svg>
+      <span data-toast-text>Message</span>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/jquery.js"></script>
+  <script src="/script.js"></script>
+             <script>
+                $(function () {
+                  $("#footer").load("/footer.html");
+                  $("#header-box").load("/header.html");
+                });
+            </script>
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- color conversion helpers ---------- */
+  function clamp(n, min, max) { return Math.min(max, Math.max(min, n)); }
+
+  function rgbToHex(r, g, b) {
+    return [r, g, b].map(function (v) {
+      return clamp(Math.round(v), 0, 255).toString(16).padStart(2, "0");
+    }).join("").toUpperCase();
+  }
+
+  function hexToRgb(hex) {
+    hex = hex.replace(/[^0-9a-f]/gi, "");
+    if (hex.length === 3) {
+      hex = hex.split("").map(function (c) { return c + c; }).join("");
+    }
+    if (hex.length !== 6) return null;
+    var num = parseInt(hex, 16);
+    return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
+  }
+
+  function rgbToHsl(r, g, b) {
+    r /= 255; g /= 255; b /= 255;
+    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    var h, s, l = (max + min) / 2;
+    if (max === min) {
+      h = s = 0;
+    } else {
+      var d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch (max) {
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        default: h = (r - g) / d + 4;
+      }
+      h *= 60;
+    }
+    return { h: Math.round(h), s: Math.round(s * 100), l: Math.round(l * 100) };
+  }
+
+  function hslToRgb(h, s, l) {
+    h = ((h % 360) + 360) % 360;
+    s /= 100; l /= 100;
+    var c = (1 - Math.abs(2 * l - 1)) * s;
+    var x = c * (1 - Math.abs((h / 60) % 2 - 1));
+    var m = l - c / 2;
+    var r, g, b;
+    if (h < 60) { r = c; g = x; b = 0; }
+    else if (h < 120) { r = x; g = c; b = 0; }
+    else if (h < 180) { r = 0; g = c; b = x; }
+    else if (h < 240) { r = 0; g = x; b = c; }
+    else if (h < 300) { r = x; g = 0; b = c; }
+    else { r = c; g = 0; b = x; }
+    return {
+      r: Math.round((r + m) * 255),
+      g: Math.round((g + m) * 255),
+      b: Math.round((b + m) * 255)
+    };
+  }
+
+  /* ---------- element refs ---------- */
+  var nativeInput = document.getElementById("nativeColorInput");
+  var swatch = document.getElementById("colorSwatch");
+  var hexInput = document.getElementById("hexInput");
+  var rInput = document.getElementById("rInput"), rSlider = document.getElementById("rSlider");
+  var gInput = document.getElementById("gInput"), gSlider = document.getElementById("gSlider");
+  var bInput = document.getElementById("bInput"), bSlider = document.getElementById("bSlider");
+  var hInput = document.getElementById("hInput"), hSlider = document.getElementById("hSlider");
+  var sInput = document.getElementById("sInput"), sSlider = document.getElementById("sSlider");
+  var lInput = document.getElementById("lInput"), lSlider = document.getElementById("lSlider");
+  var hexOutput = document.getElementById("hexOutput");
+  var rgbOutput = document.getElementById("rgbOutput");
+  var hslOutput = document.getElementById("hslOutput");
+  var errorEl = document.getElementById("colorError");
+  var shadeRow = document.getElementById("shadeRow");
+
+  var updating = false;
+
+  function setFromRgb(r, g, b, source) {
+    if (updating) return;
+    updating = true;
+
+    r = clamp(Math.round(r), 0, 255);
+    g = clamp(Math.round(g), 0, 255);
+    b = clamp(Math.round(b), 0, 255);
+
+    var hex = rgbToHex(r, g, b);
+    var hsl = rgbToHsl(r, g, b);
+
+    if (source !== "hex") hexInput.value = hex;
+    if (source !== "native") nativeInput.value = "#" + hex;
+
+    if (source !== "rgb") {
+      rInput.value = r; rSlider.value = r;
+      gInput.value = g; gSlider.value = g;
+      bInput.value = b; bSlider.value = b;
+    }
+    if (source !== "hsl") {
+      hInput.value = hsl.h; hSlider.value = hsl.h;
+      sInput.value = hsl.s; sSlider.value = hsl.s;
+      lInput.value = hsl.l; lSlider.value = hsl.l;
+    }
+
+    swatch.style.background = "#" + hex;
+    hexOutput.textContent = "#" + hex;
+    rgbOutput.textContent = "rgb(" + r + ", " + g + ", " + b + ")";
+    hslOutput.textContent = "hsl(" + hsl.h + ", " + hsl.s + "%, " + hsl.l + "%)";
+
+    renderShades(r, g, b, hsl);
+
+    updating = false;
+  }
+
+  function renderShades(r, g, b, hsl) {
+    shadeRow.innerHTML = "";
+    var steps = [-40, -25, -10, 10, 25, 40]; // lightness deltas, darkest to lightest around center
+    steps.forEach(function (delta) {
+      var l = clamp(hsl.l + delta, 2, 98);
+      var shadeRgb = hslToRgb(hsl.h, hsl.s, l);
+      var hex = rgbToHex(shadeRgb.r, shadeRgb.g, shadeRgb.b);
+      var el = document.createElement("button");
+      el.type = "button";
+      el.className = "shade-swatch";
+      el.style.background = "#" + hex;
+      el.title = "#" + hex;
+      el.addEventListener("click", function () {
+        setFromRgb(shadeRgb.r, shadeRgb.g, shadeRgb.b);
+      });
+      shadeRow.appendChild(el);
+    });
+  }
+
+  /* ---------- wire up inputs ---------- */
+  nativeInput.addEventListener("input", function () {
+    var rgb = hexToRgb(nativeInput.value);
+    if (rgb) setFromRgb(rgb.r, rgb.g, rgb.b, "native");
+  });
+
+  hexInput.addEventListener("input", function () {
+    var rgb = hexToRgb(hexInput.value);
+    if (rgb) {
+      errorEl.style.display = "none";
+      setFromRgb(rgb.r, rgb.g, rgb.b, "hex");
+    } else if (hexInput.value.trim() !== "") {
+      errorEl.textContent = "Enter a valid 3 or 6-digit hex code.";
+      errorEl.style.display = "block";
+    }
+  });
+
+  [rInput, rSlider].forEach(function (el) { el.addEventListener("input", syncFromRgbInputs); });
+  [gInput, gSlider].forEach(function (el) { el.addEventListener("input", syncFromRgbInputs); });
+  [bInput, bSlider].forEach(function (el) { el.addEventListener("input", syncFromRgbInputs); });
+  function syncFromRgbInputs(e) {
+    var val = e.target.value;
+    if (e.target === rInput || e.target === rSlider) { rInput.value = val; rSlider.value = val; }
+    if (e.target === gInput || e.target === gSlider) { gInput.value = val; gSlider.value = val; }
+    if (e.target === bInput || e.target === bSlider) { bInput.value = val; bSlider.value = val; }
+    setFromRgb(parseFloat(rInput.value) || 0, parseFloat(gInput.value) || 0, parseFloat(bInput.value) || 0, "rgb");
+  }
+
+  [hInput, hSlider, sInput, sSlider, lInput, lSlider].forEach(function (el) {
+    el.addEventListener("input", function (e) {
+      if (e.target === hInput || e.target === hSlider) { hInput.value = e.target.value; hSlider.value = e.target.value; }
+      if (e.target === sInput || e.target === sSlider) { sInput.value = e.target.value; sSlider.value = e.target.value; }
+      if (e.target === lInput || e.target === lSlider) { lInput.value = e.target.value; lSlider.value = e.target.value; }
+      var rgb = hslToRgb(parseFloat(hInput.value) || 0, parseFloat(sInput.value) || 0, parseFloat(lInput.value) || 0);
+      setFromRgb(rgb.r, rgb.g, rgb.b, "hsl");
+    });
+  });
+
+  document.getElementById("randomBtn").addEventListener("click", function () {
+    setFromRgb(Math.random() * 255, Math.random() * 255, Math.random() * 255);
+  });
+
+  document.querySelectorAll("[data-copy-target]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var target = document.getElementById(btn.getAttribute("data-copy-target"));
+      if (target && navigator.clipboard) navigator.clipboard.writeText(target.textContent);
+    });
+  });
+
+  /* ---------- init ---------- */
+  setFromRgb(242, 169, 59);
+})();
+</script>
+</body>
+</html>

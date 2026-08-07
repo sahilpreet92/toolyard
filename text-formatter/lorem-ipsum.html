@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lorem Ipsum Generator — ToolYard</title>
+ <link rel="apple-touch-icon" sizes="180x180" href="//images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="//images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="//images/favicon-16x16.png">
+  <link rel="manifest" href="//images/site.webmanifest">
+<meta name="description" content="Generate classic dummy text for web design mockups.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div id="header-box"></div>
+
+<main class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item"><a href="index.html#categories">Text & Content</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Lorem Ipsum Generator</li>
+    </ol>
+  </nav>
+
+  <div class="d-flex align-items-start gap-3 pb-4 mb-4 border-bottom">
+    <div class="tool-hero__icon flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z"/></svg>
+    </div>
+    <div>
+      <h1 class="mb-1">Lorem Ipsum Generator</h1>
+      <p class="mb-0">Generate classic dummy text for web design mockups[cite: 30].</p>
+    </div>
+  </div>
+
+  <section class="tool-panel mb-4">
+    <h3>Generate Placeholder Text</h3>
+    <p class="panel-lede">Select the number of paragraphs you need and generate placeholder text for your mockups[cite: 30].</p>
+
+    <div class="row align-items-center mb-3 g-3">
+      <div class="col-auto">
+        <label for="paraCount" class="col-form-label fw-semibold">Paragraphs:</label>
+      </div>
+      <div class="col-auto">
+        <input type="number" id="paraCount" class="form-control" value="3" min="1" max="10">
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-mustard" onclick="generateLorem()">Generate Lorem Ipsum</button>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="loremOutput" class="form-label fw-semibold">Lorem Ipsum Text:</label>
+      <textarea id="loremOutput" class="form-control font-monospace" rows="10" readonly></textarea>
+    </div>
+  </section>
+
+  <section class="py-3">
+    <div class="section-head mb-3">
+      <h2 style="font-size:18px;">Other Text & Content tools</h2>
+      <p class="mb-0">More tools from the same drawer.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <a class="hang-tag" href="word-counter.html">📝 Word Counter</a>
+      <a class="hang-tag" href="character-counter.html">📝 Character Counter</a>
+      <a class="hang-tag" href="case-converter.html">📝 Case Converter</a>
+      <a class="hang-tag" href="line-break-remover.html">📝 Line Break Remover</a>
+      <a class="hang-tag" href="index.html#categories">Browse all categories →</a>
+    </div>
+  </section>
+</main>
+
+<div id="footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/jquery.js"></script>
+<script src="/script.js"></script>
+<script>
+  $(function () {
+    $("#footer").load("/footer.html");
+    $("#header-box").load("/header.html");
+  });
+</script>
+<script>
+  const loremParagraphs = [
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "Curabitur pretium tiddunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida."
+  ];
+
+  function generateLorem() {
+    const count = parseInt(document.getElementById('paraCount').value) || 3;
+    let output = [];
+    for (let i = 0; i < count; i++) {
+      output.push(loremParagraphs[i % loremParagraphs.length]);
+    }
+    document.getElementById('loremOutput').value = output.join('\n\n');
+  }
+  generateLorem();
+</script>
+</body>
+</html>

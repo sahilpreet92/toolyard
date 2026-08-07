@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Page Numbers to PDF — ToolYard</title>
+<link rel="apple-touch-icon" sizes="180x180" href="//images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="//images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="//images/favicon-16x16.png">
+  <link rel="manifest" href="//images/site.webmanifest">
+<meta name="description" content="Combine two or more PDF files into a single document in any custom page order.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div id="header-box"></div>
+
+<main class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item"><a href="index.html#categories">PDF</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Add Page Numbers</li>
+    </ol>
+  </nav>
+
+  <div class="d-flex align-items-start gap-3 pb-4 mb-4 border-bottom">
+    <div class="tool-hero__icon flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    </div>
+    <div>
+      <h1 class="mb-1">Add Page Numbers</h1>
+      <p class="mb-0">Format and add customizable page numbering into your PDF file.</p>
+    </div>
+  </div>
+
+  <section class="tool-panel mb-4">
+    <h3>Add Numbers to PDF</h3>
+    <p class="panel-lede">Choose positioning alignment for PDF page numbers.</p>
+
+    <label class="dropzone" id="dropzone" for="fileInput">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3" stroke-linecap="round"/></svg>
+      <span><strong>Click to add a PDF</strong> or drag &amp; drop</span>
+      <input type="file" id="fileInput" accept="application/pdf" hidden>
+    </label>
+
+    <div class="file-list" id="fileInfo"></div>
+
+    <div class="mt-3" id="numOpts" style="display:none;">
+      <label class="form-label">Position Alignment</label>
+      <select id="posSelect" class="form-select" style="max-width:300px;">
+        <option value="bottom-center">Bottom Center</option>
+        <option value="bottom-right">Bottom Right</option>
+        <option value="top-right">Top Right</option>
+      </select>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 mt-3">
+      <button class="btn btn-mustard" id="processBtn" type="button" disabled>Add numbers &amp; download</button>
+      <button class="btn btn-outline-paper" id="clearBtn" type="button">Clear</button>
+    </div>
+
+    <div class="result-block" id="resultBlock">
+      <div class="done-banner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Numbered PDF created successfully!</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-3">
+    <div class="section-head mb-3">
+      <h2 style="font-size:18px;">Other PDF tools</h2>
+      <p class="mb-0">More tools from the same drawer.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <a class="hang-tag" href="merge-pdf.html">📄 Merge PDF</a>
+      <a class="hang-tag" href="split-pdf.html">📄 Split PDF</a>
+      <a class="hang-tag" href="index.html#categories">Browse all categories →</a>
+    </div>
+  </section>
+</main>
+
+<div id="footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="/jquery.js"></script>
+  <script src="/script.js"></script>
+             <script>
+                $(function () {
+                  $("#footer").load("/footer.html");
+                  $("#header-box").load("/header.html");
+                });
+            </script>
+<script>
+(function() {
+  "use strict";
+  var currentFile = null;
+  var dropzone = document.getElementById("dropzone");
+  var fileInput = document.getElementById("fileInput");
+  var fileInfo = document.getElementById("fileInfo");
+  var numOpts = document.getElementById("numOpts");
+  var processBtn = document.getElementById("processBtn");
+
+  dropzone.onclick = () => fileInput.click();
+  fileInput.onchange = (e) => { if(e.target.files.length) setFile(e.target.files[0]); };
+
+  function setFile(f) {
+    currentFile = f;
+    fileInfo.innerHTML = '<div class="file-row"><span class="file-row__icon">📄</span><span class="file-row__name">' + f.name + '</span></div>';
+    numOpts.style.display = "block"; processBtn.disabled = false;
+  }
+
+  document.getElementById("clearBtn").onclick = () => {
+    currentFile = null; fileInfo.innerHTML = ""; numOpts.style.display = "none"; processBtn.disabled = true;
+    document.getElementById("resultBlock").style.display = "none";
+  };
+
+  processBtn.onclick = async () => {
+    if (!currentFile) return;
+    processBtn.disabled = true;
+    var bytes = await currentFile.arrayBuffer();
+    var doc = await PDFLib.PDFDocument.load(bytes);
+    var pages = doc.getPages();
+    var total = pages.length;
+    var pos = document.getElementById("posSelect").value;
+    var font = await doc.embedFont(PDFLib.StandardFonts.Helvetica);
+
+    pages.forEach((page, idx) => {
+      var text = (idx + 1) + " of " + total;
+      var width = page.getWidth(), height = page.getHeight();
+      var x = width / 2 - 20, y = 20;
+      if (pos === "bottom-right") { x = width - 70; y = 20; }
+      if (pos === "top-right") { x = width - 70; y = height - 30; }
+      page.drawText(text, { x: x, y: y, size: 10, font: font, color: PDFLib.rgb(0, 0, 0) });
+    });
+
+    var outBytes = await doc.save();
+    var blob = new Blob([outBytes], { type: "application/pdf" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = currentFile.name.replace(/\.pdf$/i, "") + "_numbered.pdf";
+    a.click();
+    document.getElementById("resultBlock").style.display = "block";
+    processBtn.disabled = false;
+  };
+})();
+</script>
+</body>
+</html>

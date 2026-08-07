@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FD Calculator — ToolYard</title>
+ <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/images/site.webmanifest">
+<meta name="description" content="Calculate the maturity value of a fixed deposit based on principal, interest rate, tenure, and compounding frequency.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+ <div id="header-box"></div>
+
+<main class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item"><a href="index.html#categories">Calculator</a></li>
+      <li class="breadcrumb-item active" aria-current="page">FD Calculator</li>
+    </ol>
+  </nav>
+
+  <div class="d-flex align-items-start gap-3 pb-4 mb-4 border-bottom">
+    <div class="tool-hero__icon flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg>
+    </div>
+    <div>
+      <h1 class="mb-1">FD Calculator</h1>
+      <p class="mb-0">Enter your deposit amount, interest rate, tenure, and compounding frequency to calculate the maturity value and interest earned.</p>
+    </div>
+  </div>
+
+  <section class="tool-panel mb-4">
+    <h3>Fixed deposit details</h3>
+    <div class="row g-3 mb-3">
+      <div class="col-md-3">
+        <label for="fdPrincipal" class="form-label">Deposit amount</label>
+        <input type="number" id="fdPrincipal" class="form-control" min="0" step="1000" value="100000">
+      </div>
+      <div class="col-md-3">
+        <label for="fdRate" class="form-label">Interest rate (% per year)</label>
+        <input type="number" id="fdRate" class="form-control" min="0" step="0.1" value="7">
+      </div>
+      <div class="col-md-3">
+        <label for="fdTenure" class="form-label">Tenure (years)</label>
+        <input type="number" id="fdTenure" class="form-control" min="0.25" step="0.25" value="5">
+      </div>
+      <div class="col-md-3">
+        <label for="fdCompounding" class="form-label">Compounding frequency</label>
+        <select id="fdCompounding" class="form-select">
+          <option value="4" selected>Quarterly</option>
+          <option value="1">Annually</option>
+          <option value="2">Half-yearly</option>
+          <option value="12">Monthly</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2">
+      <button class="btn btn-mustard" id="calcBtn" type="button">Calculate maturity</button>
+    </div>
+
+    <p class="error-line" id="errorLine"></p>
+
+    <div class="result-block" id="resultBlock">
+      <div class="row row-cols-1 row-cols-sm-3 g-3">
+        <div class="col"><div class="result-stat"><div class="num" id="rPrincipal">0</div><div class="lbl">Principal</div></div></div>
+        <div class="col"><div class="result-stat"><div class="num" id="rInterest">0</div><div class="lbl">Interest earned</div></div></div>
+        <div class="col"><div class="result-stat"><div class="num" id="rMaturity">0</div><div class="lbl">Maturity value</div></div></div>
+      </div>
+
+      <div class="emi-breakdown mt-4">
+        <div class="emi-breakdown__track">
+          <div class="emi-breakdown__principal" id="barPrincipal"></div>
+          <div class="emi-breakdown__interest" id="barInterest"></div>
+        </div>
+        <div class="emi-breakdown__legend">
+          <span><i class="dot dot--principal"></i> Principal <strong id="legendPrincipal">0</strong></span>
+          <span><i class="dot dot--interest"></i> Interest <strong id="legendInterest">0</strong></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-3">
+    <div class="section-head mb-3">
+      <h2 style="font-size:18px;">Other calculators</h2>
+      <p class="mb-0">More from the same drawer.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <a class="hang-tag" href="sip-calculator.html">🧮 SIP Calculator</a>
+      <a class="hang-tag" href="cagr-calculator.html">🧮 CAGR Calculator</a>
+      <a class="hang-tag" href="emi-calculator.html">🧮 EMI Calculator</a>
+      <a class="hang-tag" href="calculator.html">Browse all calculators →</a>
+    </div>
+  </section>
+</main>
+
+<div id="footer"></div>
+
+<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x mb-4" style="z-index:1080;">
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 4.3L2.6 18a1.9 1.9 0 0 0 1.6 2.9h15.6a1.9 1.9 0 0 0 1.6-2.9L13.7 4.3a1.9 1.9 0 0 0-3.4 0z" stroke-linejoin="round"/></svg>
+      <span data-toast-text>Message</span>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/jquery.js"></script>
+<script src="/script.js"></script>
+<script>
+  $(function () {
+    $("#footer").load("/footer.html");
+    $("#header-box").load("/header.html");
+  });
+</script>
+<script>
+(function () {
+  "use strict";
+
+  var principalInput = document.getElementById("fdPrincipal");
+  var rateInput = document.getElementById("fdRate");
+  var tenureInput = document.getElementById("fdTenure");
+  var compoundingInput = document.getElementById("fdCompounding");
+  var errorLine = document.getElementById("errorLine");
+  var resultBlock = document.getElementById("resultBlock");
+
+  function fmtCurrency(n) {
+    return "₹" + Math.round(n).toLocaleString("en-IN");
+  }
+
+  function calculate() {
+    errorLine.style.display = "none";
+    resultBlock.style.display = "none";
+
+    var principal = parseFloat(principalInput.value);
+    var annualRate = parseFloat(rateInput.value);
+    var years = parseFloat(tenureInput.value);
+    var n = parseFloat(compoundingInput.value);
+
+    if (!principal || principal <= 0) {
+      errorLine.textContent = "Enter a valid deposit amount greater than 0.";
+      errorLine.style.display = "block";
+      return;
+    }
+    if (annualRate === "" || isNaN(annualRate) || annualRate < 0) {
+      errorLine.textContent = "Enter a valid interest rate.";
+      errorLine.style.display = "block";
+      return;
+    }
+    if (!years || years <= 0) {
+      errorLine.textContent = "Enter a valid tenure in years.";
+      errorLine.style.display = "block";
+      return;
+    }
+
+    var maturity = principal * Math.pow(1 + (annualRate / 100) / n, n * years);
+    var interest = maturity - principal;
+
+    document.getElementById("rPrincipal").textContent = fmtCurrency(principal);
+    document.getElementById("rInterest").textContent = fmtCurrency(interest);
+    document.getElementById("rMaturity").textContent = fmtCurrency(maturity);
+
+    var principalPct = Math.max(0, Math.min(100, (principal / maturity) * 100));
+    document.getElementById("barPrincipal").style.width = principalPct + "%";
+    document.getElementById("barInterest").style.width = (100 - principalPct) + "%";
+    document.getElementById("legendPrincipal").textContent = fmtCurrency(principal);
+    document.getElementById("legendInterest").textContent = fmtCurrency(interest);
+
+    resultBlock.style.display = "block";
+  }
+
+  document.getElementById("calcBtn").addEventListener("click", calculate);
+  [principalInput, rateInput, tenureInput].forEach(function (input) {
+    input.addEventListener("keydown", function (e) { if (e.key === "Enter") calculate(); });
+  });
+  compoundingInput.addEventListener("change", calculate);
+
+  calculate();
+
+})();
+</script>
+</body>
+</html>

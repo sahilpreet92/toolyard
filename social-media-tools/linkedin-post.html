@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LinkedIn Post Generator — ToolYard</title>
+ <link rel="apple-touch-icon" sizes="180x180" href="//images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="//images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="//images/favicon-16x16.png">
+  <link rel="manifest" href="//images/site.webmanifest">
+<meta name="description" content="Generate professional LinkedIn posts and insights to engage your network.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div id="header-box"></div>
+
+<main class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item"><a href="index.html#categories">Social Media</a></li>
+      <li class="breadcrumb-item active" aria-current="page">LinkedIn Post Generator</li>
+    </ol>
+  </nav>
+
+  <div class="d-flex align-items-start gap-3 pb-4 mb-4 border-bottom">
+    <div class="tool-hero__icon flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+    </div>
+    <div>
+      <h1 class="mb-1">LinkedIn Post Generator</h1>
+      <p class="mb-0">Create professional LinkedIn updates and thought-leadership posts.</p>
+    </div>
+  </div>
+
+  <section class="tool-panel mb-4">
+    <h3>Generate LinkedIn Post</h3>
+    <p class="panel-lede">Enter a topic or professional insight below to generate a structured post for your profile[cite: 27].</p>
+
+    <div class="mb-3">
+      <label for="li-topic" class="form-label fw-semibold">Professional Insight / Topic:</label>
+      <textarea id="li-topic" class="form-control" rows="4" placeholder="e.g., Key takeaways from switching to remote work"></textarea>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 mt-3 mb-3">
+      <button class="btn btn-mustard" onclick="generateLinkedInPost()">Generate LinkedIn Post</button>
+    </div>
+
+    <div class="mb-3">
+      <label for="li-output" class="form-label fw-semibold">Generated LinkedIn Post:</label>
+      <textarea id="li-output" class="form-control font-monospace" rows="6" readonly placeholder="Your generated LinkedIn post will appear here..."></textarea>
+    </div>
+  </section>
+
+  <section class="py-3">
+    <div class="section-head mb-3">
+      <h2 style="font-size:18px;">Other Social Media tools</h2>
+      <p class="mb-0">More tools from the same drawer.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <a class="hang-tag" href="facebook-post.html">📱 Facebook Post Generator</a>
+      <a class="hang-tag" href="tweet-generator.html">📱 Tweet Generator</a>
+      <a class="hang-tag" href="hashtag-generator.html">📱 Hashtag Generator</a>
+      <a class="hang-tag" href="instagram-caption-generator.html">📱 Instagram Caption Generator</a>
+      <a class="hang-tag" href="index.html#categories">Browse all categories →</a>
+    </div>
+  </section>
+</main>
+
+<div id="footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/jquery.js"></script>
+<script src="/script.js"></script>
+<script>
+  $(function () {
+    $("#footer").load("/footer.html");
+    $("#header-box").load("/header.html");
+  });
+</script>
+<script>
+  function generateLinkedInPost() {
+    const topic = document.getElementById('li-topic').value.trim();
+    if (!topic) return alert('Please enter a topic.');
+    document.getElementById('li-output').value = `Here is my key takeaway on: ${topic}\n\n1. Perspective matters.\n2. Consistency drives results.\n3. Continuous learning is essential.\n\nAgree or disagree? Let's discuss below in the comments.`;
+  }
+</script>
+</body>
+</html>

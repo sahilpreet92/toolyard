@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Remove Empty Lines — ToolYard</title>
+ <link rel="apple-touch-icon" sizes="180x180" href="//images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="//images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="//images/favicon-16x16.png">
+  <link rel="manifest" href="//images/site.webmanifest">
+<meta name="description" content="Clean up text documents by stripping blank lines and unnecessary spacing.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div id="header-box"></div>
+
+<main class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item"><a href="index.html#categories">Text & Content</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Remove Empty Lines</li>
+    </ol>
+  </nav>
+
+  <div class="d-flex align-items-start gap-3 pb-4 mb-4 border-bottom">
+    <div class="tool-hero__icon flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/><line x1="3" y1="12" x2="9" y2="12"/></svg>
+    </div>
+    <div>
+      <h1 class="mb-1">Remove Empty Lines</h1>
+      <p class="mb-0">Clean up text documents by stripping blank lines and unnecessary spacing[cite: 30].</p>
+    </div>
+  </div>
+
+  <section class="tool-panel mb-4">
+    <h3>Remove Blank Lines</h3>
+    <p class="panel-lede">Paste text into the field below to remove blank lines and extra line breaks[cite: 30].</p>
+
+    <div class="mb-3">
+      <label for="emptyInput" class="form-label fw-semibold">Input Text:</label>
+      <textarea id="emptyInput" class="form-control font-monospace" rows="6" placeholder="Line 1&#10;&#10;&#10;Line 2"></textarea>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 mt-3 mb-3">
+      <button class="btn btn-mustard" onclick="cleanEmptyLines()">Clean Blank Lines</button>
+    </div>
+
+    <div class="mb-3">
+      <label for="emptyOutput" class="form-label fw-semibold">Cleaned Result:</label>
+      <textarea id="emptyOutput" class="form-control font-monospace" rows="6" readonly></textarea>
+    </div>
+  </section>
+
+  <section class="py-3">
+    <div class="section-head mb-3">
+      <h2 style="font-size:18px;">Other Text & Content tools</h2>
+      <p class="mb-0">More tools from the same drawer.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <a class="hang-tag" href="word-counter.html">📝 Word Counter</a>
+      <a class="hang-tag" href="character-counter.html">📝 Character Counter</a>
+      <a class="hang-tag" href="case-converter.html">📝 Case Converter</a>
+      <a class="hang-tag" href="lorem-ipsum.html">📝 Lorem Ipsum Generator</a>
+      <a class="hang-tag" href="line-break-remover.html">📝 Line Break Remover</a>
+      <a class="hang-tag" href="random-text-generator.html">📝 Random Text Generator</a>
+      <a class="hang-tag" href="remove-duplicate-lines.html">📝 Remove Duplicate Lines</a>
+      <a class="hang-tag" href="index.html#categories">Browse all categories →</a>
+    </div>
+  </section>
+</main>
+
+<div id="footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/jquery.js"></script>
+<script src="/script.js"></script>
+<script>
+  $(function () {
+    $("#footer").load("/footer.html");
+    $("#header-box").load("/header.html");
+  });
+</script>
+<script>
+  function cleanEmptyLines() {
+    const input = document.getElementById('emptyInput').value;
+    const cleaned = input.split(/\r?\n/).filter(line => line.trim() !== '');
+    document.getElementById('emptyOutput').value = cleaned.join('\n');
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Date Difference Calculator — ToolYard</title>
+<link rel="apple-touch-icon" sizes="180x180" href="//images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="//images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="//images/favicon-16x16.png">
+  <link rel="manifest" href="//images/site.webmanifest">
+<meta name="description" content="Combine two or more PDF files into a single document in any custom page order.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div id="header-box"></div>
+
+<main class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item"><a href="index.html#categories">Calculator</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Date Difference</li>
+    </ol>
+  </nav>
+
+  <div class="d-flex align-items-start gap-3 pb-4 mb-4 border-bottom">
+    <div class="tool-hero__icon flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg>
+    </div>
+    <div>
+      <h1 class="mb-1">Date Difference Calculator</h1>
+      <p class="mb-0">Enter two dates to find the exact difference between them in years, months and days — plus total days, weeks and months.</p>
+    </div>
+  </div>
+
+  <section class="tool-panel mb-4">
+    <h3>Enter two dates</h3>
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <label for="dateFrom" class="form-label">From date</label>
+        <input type="date" id="dateFrom" class="form-control" placeholder="dd/mm/yyyy" inputmode="numeric">
+      </div>
+      <div class="col-md-4">
+        <label for="dateTo" class="form-label">To date</label>
+        <input type="date" id="dateTo" class="form-control" placeholder="dd/mm/yyyy — leave blank for today" inputmode="numeric">
+      </div>
+      <div class="col-md-4 d-flex align-items-end">
+        <button class="btn btn-mustard w-100" id="calcBtn" type="button">Calculate difference</button>
+      </div>
+    </div>
+    <p class="error-line" id="errorLine"></p>
+
+    <div class="result-block" id="resultBlock">
+      <div class="row row-cols-1 row-cols-sm-3 g-3">
+        <div class="col"><div class="result-stat"><div class="num" id="rYears">0</div><div class="lbl">Years</div></div></div>
+        <div class="col"><div class="result-stat"><div class="num" id="rMonths">0</div><div class="lbl">Months</div></div></div>
+        <div class="col"><div class="result-stat"><div class="num" id="rDays">0</div><div class="lbl">Days</div></div></div>
+      </div>
+      <div class="row row-cols-1 row-cols-sm-3 g-3 mt-1">
+        <div class="col"><div class="result-stat"><div class="num" id="rTotalDays">0</div><div class="lbl">Total days</div></div></div>
+        <div class="col"><div class="result-stat"><div class="num" id="rTotalWeeks">0</div><div class="lbl">Total weeks</div></div></div>
+        <div class="col"><div class="result-stat"><div class="num" id="rTotalMonths">0</div><div class="lbl">Total months</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-3">
+    <div class="section-head mb-3">
+      <h2 style="font-size:18px;">Other calculators</h2>
+      <p class="mb-0">More from the same drawer.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <a class="hang-tag" href="age-calculator.html">🧮 Age Calculator</a>
+      <a class="hang-tag" href="cagr-calculator.html">🧮 CAGR Calculator</a>
+      <a class="hang-tag" href="percentage-calculator.html">🧮 Percentage Calculator</a>
+      <a class="hang-tag" href="calculator.html">Browse all calculators →</a>
+    </div>
+  </section>
+</main>
+
+<div id="footer"></div>
+
+<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x mb-4" style="z-index:1080;">
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 4.3L2.6 18a1.9 1.9 0 0 0 1.6 2.9h15.6a1.9 1.9 0 0 0 1.6-2.9L13.7 4.3a1.9 1.9 0 0 0-3.4 0z" stroke-linejoin="round"/></svg>
+      <span data-toast-text>Message</span>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/jquery.js"></script>
+  <script src="/script.js"></script>
+             <script>
+                $(function () {
+                  $("#footer").load("/footer.html");
+                  $("#header-box").load("/header.html");
+                });
+            </script>
+<script>
+(function () {
+  "use strict";
+
+  function parseDate(str) {
+    if (!str || !str.trim()) return null;
+    var m = str.trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if (!m) return null;
+    var d = parseInt(m[1], 10), mo = parseInt(m[2], 10) - 1, y = parseInt(m[3], 10);
+    var date = new Date(y, mo, d);
+    if (date.getFullYear() !== y || date.getMonth() !== mo || date.getDate() !== d) return null;
+    return date;
+  }
+
+  var fromInput = document.getElementById("dateFrom");
+  var toInput = document.getElementById("dateTo");
+  var errorLine = document.getElementById("errorLine");
+  var resultBlock = document.getElementById("resultBlock");
+
+  function calculate() {
+    errorLine.style.display = "none";
+    resultBlock.style.display = "none";
+
+    var from = parseDate(fromInput.value);
+    if (!from) {
+      errorLine.textContent = "Enter a valid \"from\" date in dd/mm/yyyy format.";
+      errorLine.style.display = "block";
+      return;
+    }
+
+    var to = toInput.value.trim() ? parseDate(toInput.value) : new Date();
+    if (!to) {
+      errorLine.textContent = "Enter a valid \"to\" date in dd/mm/yyyy format.";
+      errorLine.style.display = "block";
+      return;
+    }
+
+    var earlier = from <= to ? from : to;
+    var later = from <= to ? to : from;
+
+    var years = later.getFullYear() - earlier.getFullYear();
+    var months = later.getMonth() - earlier.getMonth();
+    var days = later.getDate() - earlier.getDate();
+
+    if (days < 0) {
+      months -= 1;
+      var prevMonth = new Date(later.getFullYear(), later.getMonth(), 0).getDate();
+      days += prevMonth;
+    }
+    if (months < 0) {
+      years -= 1;
+      months += 12;
+    }
+
+    var msPerDay = 24 * 60 * 60 * 1000;
+    var totalDays = Math.round((later - earlier) / msPerDay);
+    var totalWeeks = Math.floor(totalDays / 7);
+    var totalMonths = years * 12 + months;
+
+    document.getElementById("rYears").textContent = years;
+    document.getElementById("rMonths").textContent = months;
+    document.getElementById("rDays").textContent = days;
+    document.getElementById("rTotalDays").textContent = totalDays.toLocaleString();
+    document.getElementById("rTotalWeeks").textContent = totalWeeks.toLocaleString();
+    document.getElementById("rTotalMonths").textContent = totalMonths.toLocaleString();
+
+    resultBlock.style.display = "block";
+  }
+
+  document.getElementById("calcBtn").addEventListener("click", calculate);
+  [fromInput, toInput].forEach(function (input) {
+    input.addEventListener("keydown", function (e) { if (e.key === "Enter") calculate(); });
+  });
+
+})();
+</script>
+</body>
+</html>

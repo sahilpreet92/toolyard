@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Tools — Merge, Split &amp; Compress — ToolYard</title>
+ <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/images/site.webmanifest">
+<meta name="description" content="Merge multiple PDFs into one, split a PDF into pages or ranges, or compress a PDF — all in your browser, nothing uploaded.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="header-box"></div>
+
+<main class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item"><a href="index.html#categories">PDF</a></li>
+      <li class="breadcrumb-item active" aria-current="page">PDF Tools</li>
+    </ol>
+  </nav>
+
+  <div class="d-flex align-items-start gap-3 pb-4 mb-4">
+    <div class="tool-hero__icon flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l5 5v13H7z" stroke-linejoin="round"/><path d="M14 3v5h5" stroke-linejoin="round"/></svg>
+    </div>
+    <div>
+      <h1 class="mb-1">PDF Tools</h1>
+      <p class="mb-0">Merge, split, or compress PDF files entirely in your browser. Nothing is uploaded to a server — your files never leave this tab.</p>
+    </div>
+  </div>
+
+  <!-- ============ ATTRACTIVE CARD DESIGN SECTION ============ -->
+<section class="py-5 mt-3 border-top">
+  <div class="section-head mb-4">
+    <h2 style="font-size:24px;" class="fw-bold">Explore All PDF Tools</h2>
+    <p class="text-muted">Fast, secure, browser-based solutions for managing your document needs.</p>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+    <!-- 1. Merge PDF -->
+    <div class="col">
+      <a class="tool-card d-flex flex-column text-decoration-none h-100" href="merge-pdf.html" data-tool-card data-name="Merge PDF" data-category="pdf">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div class="tool-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="8.5" y="13" width="7" height="7" rx="1"/></svg></div>
+          <div class="tool-card__name">Merge PDF</div>
+        </div>
+        <p class="tool-card__desc flex-grow-1">Combine multiple PDF documents into a single, organized file in any order you choose.</p>
+        <div class="tool-card__foot d-flex align-items-center justify-content-between">
+          <span class="tool-card__cat">PDF</span>
+          <span class="tool-card__go"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div> 
+      </a>
+    </div>
+
+    <!-- 2. Split PDF -->
+    <div class="col">
+      <a class="tool-card d-flex flex-column text-decoration-none h-100" href="split-pdf.html" data-tool-card data-name="Split PDF" data-category="pdf">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div class="tool-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="8" height="16" rx="1"/><rect x="13" y="4" width="8" height="16" rx="1"/><path d="M12 4v16" stroke-dasharray="2 3"/></svg></div>
+          <div class="tool-card__name">Split PDF</div>
+        </div>
+        <p class="tool-card__desc flex-grow-1">Separate PDF pages or extract a custom page range into standalone files.</p>
+        <div class="tool-card__foot d-flex align-items-center justify-content-between">
+          <span class="tool-card__cat">PDF</span>
+          <span class="tool-card__go"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div> 
+      </a>
+    </div>
+
+    <!-- 3. Compress PDF -->
+    <div class="col">
+      <a class="tool-card d-flex flex-column text-decoration-none h-100" href="compress-pdf.html" data-tool-card data-name="Compress PDF" data-category="pdf">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div class="tool-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v4a1 1 0 0 1-1 1H3M16 3v4a1 1 0 0 0 1 1h4M8 21v-4a1 1 0 0 0-1-1H3M16 21v-4a1 1 0 0 1 1-1h4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tool-card__name">Compress PDF</div>
+        </div>
+        <p class="tool-card__desc flex-grow-1">Reduce file size without sacrificing quality to easily share online.</p>
+        <div class="tool-card__foot d-flex align-items-center justify-content-between">
+          <span class="tool-card__cat">PDF</span>
+          <span class="tool-card__go"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div> 
+      </a>
+    </div>
+
+    <!-- 4. Rotate PDF -->
+    <div class="col">
+      <a class="tool-card d-flex flex-column text-decoration-none h-100" href="rotate-pdf.html" data-tool-card data-name="Rotate PDF" data-category="pdf">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div class="tool-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tool-card__name">Rotate PDF</div>
+        </div>
+        <p class="tool-card__desc flex-grow-1">Rotate specific PDF pages or the whole document orientation easily.</p>
+        <div class="tool-card__foot d-flex align-items-center justify-content-between">
+          <span class="tool-card__cat">PDF</span>
+          <span class="tool-card__go"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div> 
+      </a>
+    </div>
+
+    <!-- 5. Unlock PDF -->
+    <div class="col">
+      <a class="tool-card d-flex flex-column text-decoration-none h-100" href="unlock-pdf.html" data-tool-card data-name="Unlock PDF" data-category="pdf">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div class="tool-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tool-card__name">Unlock PDF</div>
+        </div>
+        <p class="tool-card__desc flex-grow-1">Remove owner passwords and restrictions from secured PDF documents.</p>
+        <div class="tool-card__foot d-flex align-items-center justify-content-between">
+          <span class="tool-card__cat">PDF</span>
+          <span class="tool-card__go"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div> 
+      </a>
+    </div>
+
+    <!-- 6. Protect PDF -->
+    <div class="col">
+      <a class="tool-card d-flex flex-column text-decoration-none h-100" href="protect-pdf.html" data-tool-card data-name="Protect PDF" data-category="pdf">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div class="tool-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tool-card__name">Protect PDF</div>
+        </div>
+        <p class="tool-card__desc flex-grow-1">Encrypt your PDF document with strong password protection.</p>
+        <div class="tool-card__foot d-flex align-items-center justify-content-between">
+          <span class="tool-card__cat">PDF</span>
+          <span class="tool-card__go"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div> 
+      </a>
+    </div>
+
+    <!-- 7. Add Page Numbers -->
+    <div class="col">
+      <a class="tool-card d-flex flex-column text-decoration-none h-100" href="add-page-numbers.html" data-tool-card data-name="Add Page Numbers" data-category="pdf">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div class="tool-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="tool-card__name">Add Page Numbers</div>
+        </div>
+        <p class="tool-card__desc flex-grow-1">Insert clean page numbers into headers or footers with custom styling.</p>
+        <div class="tool-card__foot d-flex align-items-center justify-content-between">
+          <span class="tool-card__cat">PDF</span>
+          <span class="tool-card__go"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div> 
+      </a>
+    </div>
+
+    <!-- 8. Extract Pages -->
+    <div class="col">
+      <a class="tool-card d-flex flex-column text-decoration-none h-100" href="extract-pages.html" data-tool-card data-name="Extract Pages" data-category="pdf">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div class="tool-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <div class="tool-card__name">Extract Pages</div>
+        </div>
+        <p class="tool-card__desc flex-grow-1">Pick and isolate key pages out of large PDF documents effortlessly.</p>
+        <div class="tool-card__foot d-flex align-items-center justify-content-between">
+          <span class="tool-card__cat">PDF</span>
+          <span class="tool-card__go"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div> 
+      </a>
+    </div>
+
+    <!-- 9. PDF to JPG -->
+    <div class="col">
+      <a class="tool-card d-flex flex-column text-decoration-none h-100" href="pdf-to-jpg.html" data-tool-card data-name="PDF to JPG" data-category="pdf">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div class="tool-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+          <div class="tool-card__name">PDF to JPG</div>
+        </div>
+        <p class="tool-card__desc flex-grow-1">Convert PDF pages into high-resolution JPG images in seconds.</p>
+        <div class="tool-card__foot d-flex align-items-center justify-content-between">
+          <span class="tool-card__cat">PDF</span>
+          <span class="tool-card__go"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div> 
+      </a>
+    </div>
+
+    <!-- 10. JPG to PDF -->
+    <div class="col">
+      <a class="tool-card d-flex flex-column text-decoration-none h-100" href="jpg-to-pdf.html" data-tool-card data-name="JPG to PDF" data-category="pdf">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div class="tool-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+          <div class="tool-card__name">JPG to PDF</div>
+        </div>
+        <p class="tool-card__desc flex-grow-1">Convert JPG, PNG, or WEBP images into organized PDF documents.</p>
+        <div class="tool-card__foot d-flex align-items-center justify-content-between">
+          <span class="tool-card__cat">PDF</span>
+          <span class="tool-card__go"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div> 
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<div id="footer"></div>
+
+<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x mb-4" style="z-index:1080;">
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 4.3L2.6 18a1.9 1.9 0 0 0 1.6 2.9h15.6a1.9 1.9 0 0 0 1.6-2.9L13.7 4.3a1.9 1.9 0 0 0-3.4 0z" stroke-linejoin="round"/></svg>
+      <span data-toast-text>Message</span>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="/jquery.js"></script>
+  <script src="/script.js"></script>
+             <script>
+                $(function () {
+                  $("#footer").load("/footer.html");
+                  $("#header-box").load("/header.html");
+                });
+            </script>
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- shared helpers ---------- */
+  function fmtBytes(bytes) {
+    if (bytes === 0) return "0 KB";
+    var units = ["B", "KB", "MB", "GB"];
+    var i = Math.floor(Math.log(bytes) / Math.log(1024));
+    i = Math.min(i, units.length - 1);
+    var val = bytes / Math.pow(1024, i);
+    return (i === 0 ? val : val.toFixed(val < 10 ? 2 : 1)) + " " + units[i];
+  }
+
+  function downloadBlob(blob, filename) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+  }
+
+  function setupDropzone(zoneEl, inputEl, onFiles) {
+    zoneEl.addEventListener("dragover", function (e) {
+      e.preventDefault();
+      zoneEl.classList.add("dropzone--active");
+    });
+    zoneEl.addEventListener("dragleave", function () {
+      zoneEl.classList.remove("dropzone--active");
+    });
+    zoneEl.addEventListener("drop", function (e) {
+      e.preventDefault();
+      zoneEl.classList.remove("dropzone--active");
+      if (e.dataTransfer.files && e.dataTransfer.files.length) {
+        onFiles(e.dataTransfer.files);
+      }
+    });
+    inputEl.addEventListener("change", function () {
+      if (inputEl.files && inputEl.files.length) onFiles(inputEl.files);
+      inputEl.value = "";
+    });
+  }
+
+  function showErr(el, msg) {
+    el.textContent = msg;
+    el.style.display = msg ? "block" : "none";
+  }
+
+  function setBusy(btn, busy, busyLabel, idleLabel) {
+    btn.disabled = busy || btn.dataset.forceDisabled === "1";
+    btn.textContent = busy ? busyLabel : idleLabel;
+  }
+
+  var PDFLibReady = typeof PDFLib !== "undefined";
+
+  /* ================================================================
+     MERGE
+     ================================================================ */
+  (function () {
+    var dropzone = document.getElementById("mergeDropzone");
+    var input = document.getElementById("mergeFileInput");
+    var listEl = document.getElementById("mergeFileList");
+    var errorEl = document.getElementById("mergeError");
+    var mergeBtn = document.getElementById("mergeBtn");
+    var clearBtn = document.getElementById("mergeClearBtn");
+    var resultBlock = document.getElementById("mergeResult");
+
+    var files = [];
+    var counter = 0;
+
+    function render() {
+      listEl.innerHTML = "";
+      files.forEach(function (entry, idx) {
+        var li = document.createElement("li");
+        li.className = "file-row";
+        li.innerHTML =
+          '<span class="file-row__icon">📄</span>' +
+          '<span class="file-row__name">' + escapeHtml(entry.file.name) + '</span>' +
+          '<span class="file-row__size">' + fmtBytes(entry.file.size) + '</span>' +
+          '<span class="file-row__actions">' +
+            '<button type="button" class="mini-btn" data-act="up" ' + (idx === 0 ? "disabled" : "") + '>↑</button>' +
+            '<button type="button" class="mini-btn" data-act="down" ' + (idx === files.length - 1 ? "disabled" : "") + '>↓</button>' +
+            '<button type="button" class="mini-btn mini-btn--danger" data-act="remove">✕</button>' +
+          '</span>';
+        li.querySelector('[data-act="remove"]').addEventListener("click", function () {
+          files.splice(idx, 1);
+          render();
+        });
+        var upBtn = li.querySelector('[data-act="up"]');
+        if (upBtn) upBtn.addEventListener("click", function () {
+          var tmp = files[idx - 1]; files[idx - 1] = files[idx]; files[idx] = tmp;
+          render();
+        });
+        var downBtn = li.querySelector('[data-act="down"]');
+        if (downBtn) downBtn.addEventListener("click", function () {
+          var tmp = files[idx + 1]; files[idx + 1] = files[idx]; files[idx] = tmp;
+          render();
+        });
+        listEl.appendChild(li);
+      });
+      mergeBtn.disabled = files.length < 2;
+      showErr(errorEl, "");
+      resultBlock.style.display = "none";
+    }
+
+    function escapeHtml(str) {
+      var d = document.createElement("div");
+      d.textContent = str;
+      return d.innerHTML;
+    }
+
+    setupDropzone(dropzone, input, function (fileList) {
+      Array.prototype.forEach.call(fileList, function (f) {
+        if (f.type !== "application/pdf" && !f.name.toLowerCase().endsWith(".pdf")) return;
+        files.push({ id: ++counter, file: f });
+      });
+      render();
+    });
+
+    clearBtn.addEventListener("click", function () {
+      files = [];
+      render();
+    });
+
+    mergeBtn.addEventListener("click", function () {
+      if (!PDFLibReady) {
+        showErr(errorEl, "PDF engine failed to load. Check your connection and reload the page.");
+        return;
+      }
+      if (files.length < 2) return;
+
+      setBusy(mergeBtn, true, "Merging…", "Merge & download");
+      showErr(errorEl, "");
+
+      (async function () {
+        try {
+          var merged = await PDFLib.PDFDocument.create();
+          for (var i = 0; i < files.length; i++) {
+            var bytes = await files[i].file.arrayBuffer();
+            var src = await PDFLib.PDFDocument.load(bytes, { ignoreEncryption: true });
+            var pages = await merged.copyPages(src, src.getPageIndices());
+            pages.forEach(function (p) { merged.addPage(p); });
+          }
+          var outBytes = await merged.save();
+          var blob = new Blob([outBytes], { type: "application/pdf" });
+          downloadBlob(blob, "merged.pdf");
+          document.getElementById("mergeResultText").textContent =
+            "Merged " + files.length + " files into one " + fmtBytes(blob.size) + " PDF.";
+          resultBlock.style.display = "block";
+        } catch (e) {
+          showErr(errorEl, "Couldn't merge these PDFs — " + (e && e.message ? e.message : "one of the files may be corrupted or password-protected."));
+        } finally {
+          setBusy(mergeBtn, false, "Merging…", "Merge & download");
+          mergeBtn.disabled = files.length < 2;
+        }
+      })();
+    });
+
+    render();
+  })();
+
+  /* ================================================================
+     SPLIT
+     ================================================================ */
+  (function () {
+    var dropzone = document.getElementById("splitDropzone");
+    var input = document.getElementById("splitFileInput");
+    var infoEl = document.getElementById("splitFileInfo");
+    var optionsEl = document.getElementById("splitOptions");
+    var fromInput = document.getElementById("splitFrom");
+    var toInput = document.getElementById("splitTo");
+    var errorEl = document.getElementById("splitError");
+    var splitBtn = document.getElementById("splitBtn");
+    var clearBtn = document.getElementById("splitClearBtn");
+    var resultBlock = document.getElementById("splitResult");
+
+    var currentFile = null;
+    var pageCount = 0;
+
+    function renderInfo() {
+      if (!currentFile) {
+        infoEl.innerHTML = "";
+        optionsEl.style.display = "none";
+        splitBtn.disabled = true;
+        return;
+      }
+      infoEl.innerHTML =
+        '<div class="file-row">' +
+          '<span class="file-row__icon">📄</span>' +
+          '<span class="file-row__name">' + currentFile.name + '</span>' +
+          '<span class="file-row__size">' + fmtBytes(currentFile.size) + (pageCount ? " · " + pageCount + " pages" : "") + '</span>' +
+        '</div>';
+      optionsEl.style.display = pageCount ? "block" : "none";
+      toInput.max = pageCount;
+      fromInput.max = pageCount;
+      splitBtn.disabled = !pageCount;
+    }
+
+    setupDropzone(dropzone, input, function (fileList) {
+      var f = fileList[0];
+      if (!f) return;
+      currentFile = f;
+      pageCount = 0;
+      showErr(errorEl, "");
+      resultBlock.style.display = "none";
+      renderInfo();
+
+      if (!PDFLibReady) {
+        showErr(errorEl, "PDF engine failed to load. Check your connection and reload the page.");
+        return;
+      }
+
+      (async function () {
+        try {
+          var bytes = await f.arrayBuffer();
+          var doc = await PDFLib.PDFDocument.load(bytes, { ignoreEncryption: true });
+          pageCount = doc.getPageCount();
+          toInput.value = pageCount;
+          renderInfo();
+        } catch (e) {
+          showErr(errorEl, "Couldn't read this PDF — it may be corrupted or password-protected.");
+        }
+      })();
+    });
+
+    clearBtn.addEventListener("click", function () {
+      currentFile = null;
+      pageCount = 0;
+      showErr(errorEl, "");
+      resultBlock.style.display = "none";
+      renderInfo();
+    });
+
+    splitBtn.addEventListener("click", function () {
+      if (!currentFile || !pageCount) return;
+      var mode = document.querySelector('input[name="splitMode"]:checked').value;
+      showErr(errorEl, "");
+
+      setBusy(splitBtn, true, "Splitting…", "Split & download");
+
+      (async function () {
+        try {
+          var bytes = await currentFile.arrayBuffer();
+          var src = await PDFLib.PDFDocument.load(bytes, { ignoreEncryption: true });
+          var baseName = currentFile.name.replace(/\.pdf$/i, "");
+
+          if (mode === "range") {
+            var from = Math.max(1, parseInt(fromInput.value, 10) || 1);
+            var to = Math.min(pageCount, parseInt(toInput.value, 10) || pageCount);
+            if (from > to) {
+              showErr(errorEl, "\"From page\" must be less than or equal to \"To page\".");
+              return;
+            }
+            var indices = [];
+            for (var p = from; p <= to; p++) indices.push(p - 1);
+
+            var outDoc = await PDFLib.PDFDocument.create();
+            var copied = await outDoc.copyPages(src, indices);
+            copied.forEach(function (pg) { outDoc.addPage(pg); });
+            var outBytes = await outDoc.save();
+            downloadBlob(new Blob([outBytes], { type: "application/pdf" }), baseName + "_p" + from + "-" + to + ".pdf");
+
+            document.getElementById("splitResultText").textContent =
+              "Extracted pages " + from + "–" + to + " (" + indices.length + " page" + (indices.length === 1 ? "" : "s") + ").";
+            resultBlock.style.display = "block";
+          } else {
+            var zip = new JSZip();
+            for (var i = 0; i < pageCount; i++) {
+              var single = await PDFLib.PDFDocument.create();
+              var pages = await single.copyPages(src, [i]);
+              single.addPage(pages[0]);
+              var singleBytes = await single.save();
+              var num = String(i + 1).padStart(String(pageCount).length, "0");
+              zip.file(baseName + "_page" + num + ".pdf", singleBytes);
+            }
+            var zipBlob = await zip.generateAsync({ type: "blob" });
+            downloadBlob(zipBlob, baseName + "_pages.zip");
+
+            document.getElementById("splitResultText").textContent =
+              "Split into " + pageCount + " separate PDFs, packed into a ZIP.";
+            resultBlock.style.display = "block";
+          }
+        } catch (e) {
+          showErr(errorEl, "Something went wrong while splitting — " + (e && e.message ? e.message : "try a different file."));
+        } finally {
+          setBusy(splitBtn, false, "Splitting…", "Split & download");
+        }
+      })();
+    });
+
+    document.querySelectorAll('input[name="splitMode"]').forEach(function (radio) {
+      radio.addEventListener("change", function () {
+        document.getElementById("splitRangeFields").style.display =
+          document.querySelector('input[name="splitMode"]:checked').value === "range" ? "flex" : "none";
+      });
+    });
+
+    renderInfo();
+  })();
+
+  /* ================================================================
+     COMPRESS
+     ================================================================ */
+  (function () {
+    var dropzone = document.getElementById("compressDropzone");
+    var input = document.getElementById("compressFileInput");
+    var infoEl = document.getElementById("compressFileInfo");
+    var errorEl = document.getElementById("compressError");
+    var compressBtn = document.getElementById("compressBtn");
+    var clearBtn = document.getElementById("compressClearBtn");
+    var resultBlock = document.getElementById("compressResult");
+
+    var currentFile = null;
+
+    function renderInfo() {
+      if (!currentFile) {
+        infoEl.innerHTML = "";
+        compressBtn.disabled = true;
+        return;
+      }
+      infoEl.innerHTML =
+        '<div class="file-row">' +
+          '<span class="file-row__icon">📄</span>' +
+          '<span class="file-row__name">' + currentFile.name + '</span>' +
+          '<span class="file-row__size">' + fmtBytes(currentFile.size) + '</span>' +
+        '</div>';
+      compressBtn.disabled = false;
+    }
+
+    setupDropzone(dropzone, input, function (fileList) {
+      var f = fileList[0];
+      if (!f) return;
+      currentFile = f;
+      showErr(errorEl, "");
+      resultBlock.style.display = "none";
+      renderInfo();
+    });
+
+    clearBtn.addEventListener("click", function () {
+      currentFile = null;
+      showErr(errorEl, "");
+      resultBlock.style.display = "none";
+      renderInfo();
+    });
+
+    compressBtn.addEventListener("click", function () {
+      if (!currentFile) return;
+      if (!PDFLibReady) {
+        showErr(errorEl, "PDF engine failed to load. Check your connection and reload the page.");
+        return;
+      }
+
+      showErr(errorEl, "");
+      setBusy(compressBtn, true, "Compressing…", "Compress & download");
+
+      (async function () {
+        try {
+          var origSize = currentFile.size;
+          var bytes = await currentFile.arrayBuffer();
+          var doc = await PDFLib.PDFDocument.load(bytes, { ignoreEncryption: true, updateMetadata: false });
+
+          doc.setTitle("");
+          doc.setAuthor("");
+          doc.setSubject("");
+          doc.setKeywords([]);
+          doc.setProducer("");
+          doc.setCreator("");
+
+          var outBytes = await doc.save({ useObjectStreams: true, addDefaultPage: false });
+          var newSize = outBytes.byteLength;
+
+          var finalBytes = newSize < origSize ? outBytes : bytes;
+          var finalSize = finalBytes.byteLength || finalBytes.length;
+
+          var blob = new Blob([finalBytes], { type: "application/pdf" });
+          var baseName = currentFile.name.replace(/\.pdf$/i, "");
+          downloadBlob(blob, baseName + "_compressed.pdf");
+
+          var reduction = Math.max(0, Math.round((1 - finalSize / origSize) * 100));
+          document.getElementById("rOrigSize").textContent = fmtBytes(origSize);
+          document.getElementById("rNewSize").textContent = fmtBytes(finalSize);
+          document.getElementById("rSaved").textContent = reduction + "%";
+          resultBlock.style.display = "block";
+
+          if (reduction === 0) {
+            showErr(errorEl, "This PDF was already tightly packed, so there wasn't much left to trim — the downloaded file is essentially the same size.");
+          }
+        } catch (e) {
+          showErr(errorEl, "Couldn't compress this PDF — " + (e && e.message ? e.message : "it may be corrupted or password-protected."));
+        } finally {
+          setBusy(compressBtn, false, "Compressing…", "Compress & download");
+        }
+      })();
+    });
+
+    renderInfo();
+  })();
+
+})();
+</script>
+</body>
+</html>

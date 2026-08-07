@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSS Gradient Generator & Free Design Resources</title>
+   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/images/site.webmanifest">
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: #1e293b;
+      --border-color: #334155;
+      --accent: #38bdf8;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+    }
+
+    .gradient-preview {
+      width: 100%;
+      height: 280px;
+      border-radius: 16px;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1), 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+      transition: background 0.1s ease;
+    }
+
+    .card-panel {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+    }
+
+    .color-stop-item {
+      background-color: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+    }
+
+    .form-control-color {
+      width: 42px;
+      height: 42px;
+      padding: 4px;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .code-box {
+      background-color: #090d16;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-family: 'Courier New', Courier, monospace;
+      color: #38bdf8;
+      font-size: 0.9rem;
+      word-break: break-all;
+    }
+
+    .preset-chip {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .preset-chip:hover {
+      transform: scale(1.1);
+      border-color: #ffffff;
+    }
+
+    .resource-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .resource-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+
+    .btn-accent {
+      background-color: var(--accent);
+      color: #0f172a;
+      font-weight: 600;
+      border: none;
+    }
+
+    .btn-accent:hover {
+      background-color: #0284c7;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body class="py-4">
+
+  <div class="container max-w-6xl">
+    <!-- Header -->
+    <header class="text-center mb-5">
+      <h1 class="fw-bold display-5 text-white mb-2">CSS Gradient Creator</h1>
+      <p class="text-secondary fs-6">Design custom linear, radial, or conic CSS gradients and copy clean code instantly.</p>
+    </header>
+
+    <div class="row g-4">
+      <!-- Main Canvas & Output Column -->
+      <div class="col-lg-7">
+        <div class="card-panel p-4 mb-4">
+          <div id="gradientPreview" class="gradient-preview mb-4"></div>
+
+          <!-- Quick Actions & CSS Output -->
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="text-secondary small fw-semibold">CSS CODE</span>
+            <button id="copyBtn" class="btn btn-sm btn-accent d-flex align-items-center gap-1">
+              <i class="bi bi-clipboard"></i> Copy CSS
+            </button>
+          </div>
+          <div id="cssOutput" class="code-box p-3">background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);</div>
+        </div>
+
+        <!-- Preset Section -->
+        <div class="card-panel p-4">
+          <h6 class="fw-bold mb-3 text-white"><i class="bi bi-palette me-2"></i>Quick Presets</h6>
+          <div class="d-flex flex-wrap gap-3" id="presetContainer"></div>
+        </div>
+      </div>
+
+      <!-- Controls Panel Column -->
+      <div class="col-lg-5">
+        <div class="card-panel p-4">
+          <h5 class="fw-bold mb-4 text-white"><i class="bi bi-sliders me-2"></i>Controls</h5>
+
+          <!-- Gradient Type -->
+          <div class="mb-3">
+            <label class="form-label text-secondary small fw-semibold">TYPE</label>
+            <select id="gradientType" class="form-select bg-dark text-white border-secondary">
+              <option value="linear">Linear Gradient</option>
+              <option value="radial">Radial Gradient</option>
+              <option value="conic">Conic Gradient</option>
+            </select>
+          </div>
+
+          <!-- Angle Slider (Linear & Conic) -->
+          <div id="angleControl" class="mb-4">
+            <div class="d-flex justify-content-between mb-1">
+              <label class="form-label text-secondary small fw-semibold">ANGLE / DIRECTION</label>
+              <span id="angleVal" class="text-white small">135°</span>
+            </div>
+            <input type="range" id="angleInput" class="form-range" min="0" max="360" value="135" />
+          </div>
+
+          <!-- Color Stops Section -->
+          <div class="mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <label class="form-label text-secondary small fw-semibold mb-0">COLOR STOPS</label>
+              <button id="addStopBtn" class="btn btn-sm btn-outline-light d-flex align-items-center gap-1">
+                <i class="bi bi-plus-lg"></i> Add Stop
+              </button>
+            </div>
+            <div id="colorStopsContainer" class="d-flex flex-column gap-2"></div>
+          </div>
+
+          <!-- Randomize Button -->
+          <button id="randomizeBtn" class="btn btn-outline-info w-100 fw-semibold py-2">
+            <i class="bi bi-shuffle me-2"></i> Randomize Gradient
+          </button>
+        </div>
+      </div>
+    </div>
+
+   
+  </div>
+
+  <script>
+    // Initial State
+    let state = {
+      type: 'linear',
+      angle: 135,
+      stops: [
+        { color: '#3b82f6', position: 0 },
+        { color: '#8b5cf6', position: 100 }
+      ]
+    };
+
+    const presets = [
+      { name: 'Sunset', stops: [{ color: '#ff7e5f', position: 0 }, { color: '#feb47b', position: 100 }] },
+      { name: 'Ocean', stops: [{ color: '#2b5876', position: 0 }, { color: '#4e4376', position: 100 }] },
+      { name: 'Neon', stops: [{ color: '#00f2fe', position: 0 }, { color: '#4facfe', position: 100 }] },
+      { name: 'Peach', stops: [{ color: '#ed6ea0', position: 0 }, { color: '#ec8c69', position: 100 }] },
+      { name: 'Emerald', stops: [{ color: '#0ba360', position: 0 }, { color: '#3cba92', position: 100 }] }
+    ];
+
+    // DOM Elements
+    const preview = document.getElementById('gradientPreview');
+    const cssOutput = document.getElementById('cssOutput');
+    const gradientType = document.getElementById('gradientType');
+    const angleInput = document.getElementById('angleInput');
+    const angleVal = document.getElementById('angleVal');
+    const angleControl = document.getElementById('angleControl');
+    const colorStopsContainer = document.getElementById('colorStopsContainer');
+    const addStopBtn = document.getElementById('addStopBtn');
+    const randomizeBtn = document.getElementById('randomizeBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const presetContainer = document.getElementById('presetContainer');
+
+    // Initialize Page
+    function init() {
+      renderPresets();
+      renderStopsUI();
+      updateGradient();
+
+      gradientType.addEventListener('change', (e) => {
+        state.type = e.target.value;
+        angleControl.style.display = state.type === 'radial' ? 'none' : 'block';
+        updateGradient();
+      });
+
+      angleInput.addEventListener('input', (e) => {
+        state.angle = e.target.value;
+        angleVal.textContent = `${state.angle}°`;
+        updateGradient();
+      });
+
+      addStopBtn.addEventListener('click', () => {
+        if (state.stops.length < 5) {
+          const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+          state.stops.push({ color: randomColor, position: 50 });
+          renderStopsUI();
+          updateGradient();
+        }
+      });
+
+      randomizeBtn.addEventListener('click', randomizeGradient);
+      copyBtn.addEventListener('click', copyCode);
+    }
+
+    // Render Color Stops
+    function renderStopsUI() {
+      colorStopsContainer.innerHTML = '';
+      state.stops.forEach((stop, index) => {
+        const item = document.createElement('div');
+        item.className = 'color-stop-item p-2 d-flex align-items-center gap-2';
+        item.innerHTML = `
+          <input type="color" class="form-control-color" value="${stop.color}" data-index="${index}">
+          <input type="range" class="form-range flex-grow-1" min="0" max="100" value="${stop.position}" data-index="${index}">
+          <span class="text-white small position-val" style="width: 35px;">${stop.position}%</span>
+          ${state.stops.length > 2 ? `<button class="btn btn-sm btn-link text-danger p-0" data-remove="${index}"><i class="bi bi-trash"></i></button>` : ''}
+        `;
+        colorStopsContainer.appendChild(item);
+      });
+
+      // Attach Event Listeners to Stops
+      colorStopsContainer.querySelectorAll('input[type="color"]').forEach(input => {
+        input.addEventListener('input', (e) => {
+          const idx = e.target.dataset.index;
+          state.stops[idx].color = e.target.value;
+          updateGradient();
+        });
+      });
+
+      colorStopsContainer.querySelectorAll('input[type="range"]').forEach(input => {
+        input.addEventListener('input', (e) => {
+          const idx = e.target.dataset.index;
+          state.stops[idx].position = e.target.value;
+          e.target.nextElementSibling.textContent = `${e.target.value}%`;
+          updateGradient();
+        });
+      });
+
+      colorStopsContainer.querySelectorAll('[data-remove]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = e.currentTarget.dataset.remove;
+          state.stops.splice(idx, 1);
+          renderStopsUI();
+          updateGradient();
+        });
+      });
+    }
+
+    // Update Gradient Output
+    function updateGradient() {
+      // Sort stops by position
+      const sortedStops = [...state.stops].sort((a, b) => a.position - b.position);
+      const stopsString = sortedStops.map(s => `${s.color} ${s.position}%`).join(', ');
+
+      let cssString = '';
+      if (state.type === 'linear') {
+        cssString = `linear-gradient(${state.angle}deg, ${stopsString})`;
+      } else if (state.type === 'radial') {
+        cssString = `radial-gradient(circle, ${stopsString})`;
+      } else if (state.type === 'conic') {
+        cssString = `conic-gradient(from ${state.angle}deg, ${stopsString})`;
+      }
+
+      const fullCSS = `background: ${cssString};`;
+      preview.style.background = cssString;
+      cssOutput.textContent = fullCSS;
+    }
+
+    // Render Presets
+    function renderPresets() {
+      presetContainer.innerHTML = '';
+      presets.forEach(p => {
+        const chip = document.createElement('div');
+        chip.className = 'preset-chip';
+        const stopsStr = p.stops.map(s => `${s.color} ${s.position}%`).join(', ');
+        chip.style.background = `linear-gradient(135deg, ${stopsStr})`;
+        chip.title = p.name;
+        chip.addEventListener('click', () => {
+          state.stops = JSON.parse(JSON.stringify(p.stops));
+          renderStopsUI();
+          updateGradient();
+        });
+        presetContainer.appendChild(chip);
+      });
+    }
+
+    // Generate Random Gradient
+    function randomizeGradient() {
+      const randomCount = Math.floor(Math.random() * 2) + 2; // 2 or 3 stops
+      const newStops = [];
+      for (let i = 0; i < randomCount; i++) {
+        const color = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+        const position = i === 0 ? 0 : i === randomCount - 1 ? 100 : 50;
+        newStops.push({ color, position });
+      }
+      state.stops = newStops;
+      state.angle = Math.floor(Math.random() * 360);
+      angleInput.value = state.angle;
+      angleVal.textContent = `${state.angle}°`;
+      renderStopsUI();
+      updateGradient();
+    }
+
+    // Copy to Clipboard
+    function copyCode() {
+      navigator.clipboard.writeText(cssOutput.textContent).then(() => {
+        copyBtn.innerHTML = '<i class="bi bi-check2"></i> Copied!';
+        setTimeout(() => {
+          copyBtn.innerHTML = '<i class="bi bi-clipboard"></i> Copy CSS';
+        }, 2000);
+      });
+    }
+
+    // Run Initialization
+    init();
+  </script>
+</body>
+</html>

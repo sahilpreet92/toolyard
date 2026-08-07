@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Tools — Count, Clean &amp; Dedupe — ToolYard</title>
+ <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/images/site.webmanifest">
+<meta name="description" content="Count words and characters, clean up messy text, or remove duplicate lines while keeping the first occurrence — all in your browser.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="header-box"></div>
+
+<main class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item"><a href="index.html#categories">Text</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Text Tools</li>
+    </ol>
+  </nav>
+
+  <div class="d-flex align-items-start gap-3 pb-4 mb-4 border-bottom">
+    <div class="tool-hero__icon flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h13" stroke-linecap="round"/></svg>
+    </div>
+    <div>
+      <h1 class="mb-1">Text Tools</h1>
+      <p class="mb-0">Count words and characters, tidy up messy text, or strip out duplicate lines. Everything runs locally — nothing you paste here leaves your browser.</p>
+    </div>
+  </div>
+
+  <!-- ============ TABS ============ -->
+  <ul class="nav tool-tabs mb-4" id="textTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="count-tab" data-bs-toggle="tab" data-bs-target="#count-pane" type="button" role="tab" aria-controls="count-pane" aria-selected="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" stroke-linecap="round"/></svg>
+        Count
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="clean-tab" data-bs-toggle="tab" data-bs-target="#clean-pane" type="button" role="tab" aria-controls="clean-pane" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21l6-6M14 4l6 6-8.5 8.5a2.1 2.1 0 0 1-3 0l-3-3a2.1 2.1 0 0 1 0-3L14 4z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Clean
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="dedupe-tab" data-bs-toggle="tab" data-bs-target="#dedupe-pane" type="button" role="tab" aria-controls="dedupe-pane" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Dedupe
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="textTabContent">
+
+    <!-- ============ COUNT ============ -->
+    <div class="tab-pane fade show active" id="count-pane" role="tabpanel" aria-labelledby="count-tab">
+      <section class="tool-panel mb-4">
+        <h3>Word &amp; character count</h3>
+        <p class="panel-lede">Paste or type your text below — the counts update as you go.</p>
+
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <span class="col-label">Your text</span>
+          <button class="mini-btn" id="countClearBtn" type="button">Clear</button>
+        </div>
+        <textarea class="form-control code-area" id="countInput" placeholder="Paste or type your text here…" style="min-height:220px;"></textarea>
+
+        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-6 g-3 mt-1">
+          <div class="col"><div class="result-stat"><div class="num" id="cWords">0</div><div class="lbl">Words</div></div></div>
+          <div class="col"><div class="result-stat"><div class="num" id="cChars">0</div><div class="lbl">Characters</div></div></div>
+          <div class="col"><div class="result-stat"><div class="num" id="cCharsNoSpace">0</div><div class="lbl">No spaces</div></div></div>
+          <div class="col"><div class="result-stat"><div class="num" id="cSentences">0</div><div class="lbl">Sentences</div></div></div>
+          <div class="col"><div class="result-stat"><div class="num" id="cLines">0</div><div class="lbl">Lines</div></div></div>
+          <div class="col"><div class="result-stat"><div class="num" id="cReadTime">0</div><div class="lbl">Read time</div></div></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ CLEAN ============ -->
+    <div class="tab-pane fade" id="clean-pane" role="tabpanel" aria-labelledby="clean-tab">
+      <section class="tool-panel mb-4">
+        <h3>Clean up text</h3>
+        <p class="panel-lede">Pick what to fix, then clean. The result appears on the right, ready to copy.</p>
+
+        <div class="clean-options mb-3">
+          <label class="clean-option"><input type="checkbox" id="optTrim" checked><span>Trim leading &amp; trailing whitespace on every line</span></label>
+          <label class="clean-option"><input type="checkbox" id="optCollapseSpaces" checked><span>Collapse repeated spaces into one</span></label>
+          <label class="clean-option"><input type="checkbox" id="optRemoveEmpty"><span>Remove empty lines entirely</span></label>
+          <label class="clean-option"><input type="checkbox" id="optCollapseBlank" checked><span>Collapse multiple blank lines into one</span></label>
+          <label class="clean-option"><input type="checkbox" id="optSmartQuotes"><span>Convert smart quotes ( &#8220;&#8221; &#8216;&#8217; ) to straight quotes</span></label>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <span class="col-label">Input</span>
+              <button class="mini-btn" id="cleanClearBtn" type="button">Clear</button>
+            </div>
+            <textarea class="form-control code-area" id="cleanInput" placeholder="Paste messy text here…"></textarea>
+          </div>
+          <div class="col-md-6">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <span class="col-label">Cleaned result</span>
+              <button class="mini-btn" id="cleanCopyBtn" type="button">Copy</button>
+            </div>
+            <textarea class="form-control code-area" id="cleanOutput" placeholder="Cleaned text will appear here…" readonly></textarea>
+          </div>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2 mt-3">
+          <button class="btn btn-mustard" id="cleanBtn" type="button">Clean text</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ DEDUPE ============ -->
+    <div class="tab-pane fade" id="dedupe-pane" role="tabpanel" aria-labelledby="dedupe-tab">
+      <section class="tool-panel mb-4">
+        <h3>Remove duplicate lines</h3>
+        <p class="panel-lede">Paste a list. Duplicate lines are removed, keeping the first time each one appears.</p>
+
+        <div class="clean-options mb-3">
+          <label class="clean-option"><input type="checkbox" id="optCaseInsensitive"><span>Case-insensitive matching (Apple = apple)</span></label>
+          <label class="clean-option"><input type="checkbox" id="optTrimBeforeCompare" checked><span>Ignore leading/trailing whitespace when comparing</span></label>
+          <label class="clean-option"><input type="checkbox" id="optSkipBlankDupes" checked><span>Don't treat blank lines as duplicates of each other</span></label>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <span class="col-label">Input</span>
+              <button class="mini-btn" id="dedupeClearBtn" type="button">Clear</button>
+            </div>
+            <textarea class="form-control code-area" id="dedupeInput" placeholder="one&#10;two&#10;one&#10;three"></textarea>
+          </div>
+          <div class="col-md-6">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <span class="col-label">Result</span>
+              <button class="mini-btn" id="dedupeCopyBtn" type="button">Copy</button>
+            </div>
+            <textarea class="form-control code-area" id="dedupeOutput" placeholder="Deduplicated text will appear here…" readonly></textarea>
+          </div>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2 mt-3">
+          <button class="btn btn-mustard" id="dedupeBtn" type="button">Remove duplicates</button>
+        </div>
+
+        <div class="result-block" id="dedupeResult">
+          <div class="done-banner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="dedupeResultText">Done.</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </div>
+
+  <section class="py-3">
+    <div class="section-head mb-3">
+      <h2 style="font-size:18px;">Other text tools</h2>
+      <p class="mb-0">More from the same drawer.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <a class="hang-tag" href="#" data-unbuilt>📝 Case Converter</a>
+      <a class="hang-tag" href="#" data-unbuilt>📝 Find &amp; Replace</a>
+      <a class="hang-tag" href="json-formatter.html">💻 JSON Formatter</a>
+      <a class="hang-tag" href="index.html#categories">Browse all categories →</a>
+    </div>
+  </section>
+</main>
+
+<div id="footer"></div>
+
+<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x mb-4" style="z-index:1080;">
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 4.3L2.6 18a1.9 1.9 0 0 0 1.6 2.9h15.6a1.9 1.9 0 0 0 1.6-2.9L13.7 4.3a1.9 1.9 0 0 0-3.4 0z" stroke-linejoin="round"/></svg>
+      <span data-toast-text>Message</span>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/jquery.js"></script>
+  <script src="/script.js"></script>
+             <script>
+                $(function () {
+                  $("#footer").load("/footer.html");
+                  $("#header-box").load("/header.html");
+                });
+            </script>
+<script>
+(function () {
+  "use strict";
+
+  function copyToClipboard(text) {
+    if (!text) return;
+    navigator.clipboard && navigator.clipboard.writeText(text);
+  }
+
+  /* ================================================================
+     COUNT
+     ================================================================ */
+  (function () {
+    var input = document.getElementById("countInput");
+    var clearBtn = document.getElementById("countClearBtn");
+
+    function update() {
+      var text = input.value;
+
+      var words = text.trim() === "" ? [] : text.trim().split(/\s+/);
+      var chars = text.length;
+      var charsNoSpace = text.replace(/\s/g, "").length;
+
+      var sentenceMatches = text.match(/[^.!?]+[.!?]+/g);
+      var sentences = sentenceMatches ? sentenceMatches.length : (text.trim() ? 1 : 0);
+
+      var lines = text === "" ? 0 : text.split("\n").length;
+
+      var minutes = words.length / 200; // ~200 wpm average reading speed
+      var readTime;
+      if (words.length === 0) {
+        readTime = "0 sec";
+      } else if (minutes < 1) {
+        readTime = Math.max(1, Math.round(minutes * 60)) + " sec";
+      } else {
+        readTime = Math.round(minutes) + " min";
+      }
+
+      document.getElementById("cWords").textContent = words.length.toLocaleString();
+      document.getElementById("cChars").textContent = chars.toLocaleString();
+      document.getElementById("cCharsNoSpace").textContent = charsNoSpace.toLocaleString();
+      document.getElementById("cSentences").textContent = sentences.toLocaleString();
+      document.getElementById("cLines").textContent = lines.toLocaleString();
+      document.getElementById("cReadTime").textContent = readTime;
+    }
+
+    input.addEventListener("input", update);
+    clearBtn.addEventListener("click", function () {
+      input.value = "";
+      update();
+      input.focus();
+    });
+
+    update();
+  })();
+
+  /* ================================================================
+     CLEAN
+     ================================================================ */
+  (function () {
+    var input = document.getElementById("cleanInput");
+    var output = document.getElementById("cleanOutput");
+    var cleanBtn = document.getElementById("cleanBtn");
+    var clearBtn = document.getElementById("cleanClearBtn");
+    var copyBtn = document.getElementById("cleanCopyBtn");
+
+    function clean() {
+      var text = input.value;
+      var lines = text.split("\n");
+
+      if (document.getElementById("optTrim").checked) {
+        lines = lines.map(function (l) { return l.replace(/^[ \t]+|[ \t]+$/g, ""); });
+      }
+      if (document.getElementById("optCollapseSpaces").checked) {
+        lines = lines.map(function (l) { return l.replace(/[ \t]{2,}/g, " "); });
+      }
+      if (document.getElementById("optSmartQuotes").checked) {
+        lines = lines.map(function (l) {
+          return l
+            .replace(/[\u201C\u201D]/g, '"')
+            .replace(/[\u2018\u2019]/g, "'");
+        });
+      }
+      if (document.getElementById("optRemoveEmpty").checked) {
+        lines = lines.filter(function (l) { return l.trim() !== ""; });
+      } else if (document.getElementById("optCollapseBlank").checked) {
+        var collapsed = [];
+        var prevBlank = false;
+        lines.forEach(function (l) {
+          var isBlank = l.trim() === "";
+          if (isBlank && prevBlank) return;
+          collapsed.push(l);
+          prevBlank = isBlank;
+        });
+        lines = collapsed;
+      }
+
+      output.value = lines.join("\n");
+    }
+
+    cleanBtn.addEventListener("click", clean);
+    clearBtn.addEventListener("click", function () {
+      input.value = "";
+      output.value = "";
+      input.focus();
+    });
+    copyBtn.addEventListener("click", function () { copyToClipboard(output.value); });
+  })();
+
+  /* ================================================================
+     DEDUPE
+     ================================================================ */
+  (function () {
+    var input = document.getElementById("dedupeInput");
+    var output = document.getElementById("dedupeOutput");
+    var dedupeBtn = document.getElementById("dedupeBtn");
+    var clearBtn = document.getElementById("dedupeClearBtn");
+    var copyBtn = document.getElementById("dedupeCopyBtn");
+    var resultBlock = document.getElementById("dedupeResult");
+
+    function dedupe() {
+      var text = input.value;
+      var lines = text.split("\n");
+
+      var caseInsensitive = document.getElementById("optCaseInsensitive").checked;
+      var trimCompare = document.getElementById("optTrimBeforeCompare").checked;
+      var skipBlank = document.getElementById("optSkipBlankDupes").checked;
+
+      var seen = new Set();
+      var result = [];
+      var removed = 0;
+
+      lines.forEach(function (line) {
+        var key = trimCompare ? line.trim() : line;
+        if (caseInsensitive) key = key.toLowerCase();
+
+        if (skipBlank && line.trim() === "") {
+          result.push(line);
+          return;
+        }
+
+        if (seen.has(key)) {
+          removed++;
+          return;
+        }
+        seen.add(key);
+        result.push(line);
+      });
+
+      output.value = result.join("\n");
+
+      document.getElementById("dedupeResultText").textContent =
+        removed === 0
+          ? "No duplicate lines found — " + lines.length + " lines kept."
+          : "Removed " + removed + " duplicate line" + (removed === 1 ? "" : "s") + ", kept " + result.length + " of " + lines.length + ".";
+      resultBlock.style.display = "block";
+    }
+
+    dedupeBtn.addEventListener("click", dedupe);
+    clearBtn.addEventListener("click", function () {
+      input.value = "";
+      output.value = "";
+      resultBlock.style.display = "none";
+      input.focus();
+    });
+    copyBtn.addEventListener("click", function () { copyToClipboard(output.value); });
+  })();
+
+})();
+</script>
+</body>
+</html>

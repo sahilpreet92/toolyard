@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAGR Calculator — ToolYard</title>
+ <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/images/site.webmanifest">
+<meta name="description" content="Calculate the Compound Annual Growth Rate (CAGR) of an investment from its initial value, final value, and number of years.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+ <div id="header-box"></div>
+
+<main class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item"><a href="index.html#categories">Calculator</a></li>
+      <li class="breadcrumb-item active" aria-current="page">CAGR Calculator</li>
+    </ol>
+  </nav>
+
+  <div class="d-flex align-items-start gap-3 pb-4 mb-4 border-bottom">
+    <div class="tool-hero__icon flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg>
+    </div>
+    <div>
+      <h1 class="mb-1">CAGR Calculator</h1>
+      <p class="mb-0">Enter the initial value, final value, and number of years to calculate the Compound Annual Growth Rate (CAGR) of an investment.</p>
+    </div>
+  </div>
+
+  <section class="tool-panel mb-4">
+    <h3>Investment details</h3>
+    <div class="row g-3 mb-3">
+      <div class="col-md-4">
+        <label for="cagrInitial" class="form-label">Initial value</label>
+        <input type="number" id="cagrInitial" class="form-control" min="0" step="1000" value="100000">
+      </div>
+      <div class="col-md-4">
+        <label for="cagrFinal" class="form-label">Final value</label>
+        <input type="number" id="cagrFinal" class="form-control" min="0" step="1000" value="250000">
+      </div>
+      <div class="col-md-4">
+        <label for="cagrYears" class="form-label">Number of years</label>
+        <input type="number" id="cagrYears" class="form-control" min="0.1" step="0.5" value="5">
+      </div>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2">
+      <button class="btn btn-mustard" id="calcBtn" type="button">Calculate CAGR</button>
+    </div>
+
+    <p class="error-line" id="errorLine"></p>
+
+    <div class="result-block" id="resultBlock">
+      <div class="row row-cols-1 row-cols-sm-3 g-3">
+        <div class="col"><div class="result-stat"><div class="num" id="rCagr">0%</div><div class="lbl">CAGR</div></div></div>
+        <div class="col"><div class="result-stat"><div class="num" id="rGrowth">0</div><div class="lbl">Absolute growth</div></div></div>
+        <div class="col"><div class="result-stat"><div class="num" id="rMultiple">0×</div><div class="lbl">Growth multiple</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-3">
+    <div class="section-head mb-3">
+      <h2 style="font-size:18px;">Other calculators</h2>
+      <p class="mb-0">More from the same drawer.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <a class="hang-tag" href="sip-calculator.html">🧮 SIP Calculator</a>
+      <a class="hang-tag" href="fd-calculator.html">🧮 FD Calculator</a>
+      <a class="hang-tag" href="currency-converter.html">🧮 Currency Converter</a>
+      <a class="hang-tag" href="calculator.html">Browse all calculators →</a>
+    </div>
+  </section>
+</main>
+
+<div id="footer"></div>
+
+<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x mb-4" style="z-index:1080;">
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 4.3L2.6 18a1.9 1.9 0 0 0 1.6 2.9h15.6a1.9 1.9 0 0 0 1.6-2.9L13.7 4.3a1.9 1.9 0 0 0-3.4 0z" stroke-linejoin="round"/></svg>
+      <span data-toast-text>Message</span>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/jquery.js"></script>
+<script src="/script.js"></script>
+<script>
+  $(function () {
+    $("#footer").load("/footer.html");
+    $("#header-box").load("/header.html");
+  });
+</script>
+<script>
+(function () {
+  "use strict";
+
+  var initialInput = document.getElementById("cagrInitial");
+  var finalInput = document.getElementById("cagrFinal");
+  var yearsInput = document.getElementById("cagrYears");
+  var errorLine = document.getElementById("errorLine");
+  var resultBlock = document.getElementById("resultBlock");
+
+  function fmtCurrency(n) {
+    return "₹" + Math.round(n).toLocaleString("en-IN");
+  }
+
+  function calculate() {
+    errorLine.style.display = "none";
+    resultBlock.style.display = "none";
+
+    var initial = parseFloat(initialInput.value);
+    var final = parseFloat(finalInput.value);
+    var years = parseFloat(yearsInput.value);
+
+    if (!initial || initial <= 0) {
+      errorLine.textContent = "Enter a valid initial value greater than 0.";
+      errorLine.style.display = "block";
+      return;
+    }
+    if (!final || final <= 0) {
+      errorLine.textContent = "Enter a valid final value greater than 0.";
+      errorLine.style.display = "block";
+      return;
+    }
+    if (!years || years <= 0) {
+      errorLine.textContent = "Enter a valid number of years greater than 0.";
+      errorLine.style.display = "block";
+      return;
+    }
+
+    var cagr = (Math.pow(final / initial, 1 / years) - 1) * 100;
+    var growth = final - initial;
+    var multiple = final / initial;
+
+    document.getElementById("rCagr").textContent = (Math.round(cagr * 100) / 100) + "%";
+    document.getElementById("rGrowth").textContent = fmtCurrency(growth);
+    document.getElementById("rMultiple").textContent = (Math.round(multiple * 100) / 100) + "×";
+
+    resultBlock.style.display = "block";
+  }
+
+  document.getElementById("calcBtn").addEventListener("click", calculate);
+  [initialInput, finalInput, yearsInput].forEach(function (input) {
+    input.addEventListener("keydown", function (e) { if (e.key === "Enter") calculate(); });
+  });
+
+  calculate();
+
+})();
+</script>
+</body>
+</html>

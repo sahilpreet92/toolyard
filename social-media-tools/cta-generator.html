@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call-to-Action Generator — ToolYard</title>
+ <link rel="apple-touch-icon" sizes="180x180" href="//images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="//images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="//images/favicon-16x16.png">
+  <link rel="manifest" href="//images/site.webmanifest">
+<meta name="description" content="Generate high-converting Call-to-Action statements tailored to your marketing goals.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div id="header-box"></div>
+
+<main class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item"><a href="index.html#categories">Marketing</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Call-to-Action Generator</li>
+    </ol>
+  </nav>
+
+  <div class="d-flex align-items-start gap-3 pb-4 mb-4 border-bottom">
+    <div class="tool-hero__icon flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5"/></svg>
+    </div>
+    <div>
+      <h1 class="mb-1">Call-to-Action Generator</h1>
+      <p class="mb-0">Generate compelling call-to-action prompts tailored to your specific goal.</p>
+    </div>
+  </div>
+
+  <section class="tool-panel mb-4">
+    <h3>Generate CTAs</h3>
+    <p class="panel-lede">Enter your desired user action below to create compelling Call-to-Action options.</p>
+
+    <div class="mb-3">
+      <label for="cta-goal" class="form-label fw-semibold">Goal / Desired Action:</label>
+      <input type="text" id="cta-goal" class="form-control" placeholder="e.g., Subscribe to newsletter, Buy product">
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 mt-3 mb-3">
+      <button class="btn btn-mustard" onclick="generateCTA()">Generate CTAs</button>
+    </div>
+
+    <div class="mb-3">
+      <label for="cta-output" class="form-label fw-semibold">Generated CTAs:</label>
+      <textarea id="cta-output" class="form-control font-monospace" rows="6" readonly placeholder="Your generated CTAs will appear here..."></textarea>
+    </div>
+  </section>
+
+  <section class="py-3">
+    <div class="section-head mb-3">
+      <h2 style="font-size:18px;">Other Marketing tools</h2>
+      <p class="mb-0">More tools from the same drawer.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <a class="hang-tag" href="meta-tag-generator.html">📣 Meta Tag Generator</a>
+      <a class="hang-tag" href="utm-builder.html">📣 UTM Builder</a>
+      <a class="hang-tag" href="headline-generator.html">📣 Headline Generator</a>
+      <a class="hang-tag" href="index.html#categories">Browse all categories →</a>
+    </div>
+  </section>
+</main>
+
+<div id="footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/jquery.js"></script>
+<script src="/script.js"></script>
+<script>
+  $(function () {
+    $("#footer").load("/footer.html");
+    $("#header-box").load("/header.html");
+  });
+</script>
+<script>
+  function generateCTA() {
+    const goal = document.getElementById('cta-goal').value.trim();
+    if (!goal) return alert('Please enter a goal.');
+    document.getElementById('cta-output').value = `1. Click the link below to ${goal} today!\n2. Ready to take action? ${goal} now.\n3. Drop a comment below if you want to ${goal}.`;
+  }
+</script>
+</body>
+</html>
+```[cite: 17, 18]

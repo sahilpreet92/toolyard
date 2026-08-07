@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Currency Converter — ToolYard</title>
+ <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/images/site.webmanifest">
+<meta name="description" content="Convert between major world currencies using live, daily-updated exchange rates.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+ <div id="header-box"></div>
+
+<main class="container py-4">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+      <li class="breadcrumb-item"><a href="index.html#categories">Calculator</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Currency Converter</li>
+    </ol>
+  </nav>
+
+  <div class="d-flex align-items-start gap-3 pb-4 mb-4 border-bottom">
+    <div class="tool-hero__icon flex-shrink-0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h.01M12 11h.01M16 11h.01" stroke-linecap="round"/></svg>
+    </div>
+    <div>
+      <h1 class="mb-1">Currency Converter</h1>
+      <p class="mb-0">Convert between 20 major currencies using live daily exchange rates. Rates come from the European Central Bank via a free public API.</p>
+    </div>
+  </div>
+
+  <section class="tool-panel mb-4">
+    <h3>Convert currency</h3>
+    <p class="panel-lede">Live exchange rates via the Frankfurter API (European Central Bank reference rates, updated daily on weekdays).</p>
+
+    <div class="row g-3 align-items-end">
+      <div class="col-12 col-md-4">
+        <label for="curAmount" class="form-label">Amount</label>
+        <input type="number" id="curAmount" class="form-control" min="0" step="1" value="100">
+      </div>
+      <div class="col-5 col-md-3">
+        <label for="curFrom" class="form-label">From</label>
+        <select id="curFrom" class="form-select"></select>
+      </div>
+      <div class="col-2 col-md-1 d-flex justify-content-center">
+        <button class="currency-swap-btn" id="swapBtn" type="button" title="Swap currencies" aria-label="Swap currencies">⇄</button>
+      </div>
+      <div class="col-5 col-md-3">
+        <label for="curTo" class="form-label">To</label>
+        <select id="curTo" class="form-select"></select>
+      </div>
+      <div class="col-12 col-md-1">
+        <button class="btn btn-mustard w-100" id="convertBtn" type="button">Go</button>
+      </div>
+    </div>
+
+    <p class="error-line" id="curError"></p>
+
+    <div class="result-block" id="curResultBlock">
+      <div class="result-stat" style="max-width:420px;">
+        <div class="num" id="curResultOut">—</div>
+        <div class="lbl" id="curResultLbl">Result</div>
+      </div>
+      <p class="mt-3 mb-0" style="font-size:12.5px; color:rgba(244,237,224,.55);" id="curMeta"></p>
+    </div>
+  </section>
+
+  <section class="py-3">
+    <div class="section-head mb-3">
+      <h2 style="font-size:18px;">Other calculators</h2>
+      <p class="mb-0">More from the same drawer.</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2">
+      <a class="hang-tag" href="cagr-calculator.html">🧮 CAGR Calculator</a>
+      <a class="hang-tag" href="percentage-calculator.html">🧮 Percentage Calculator</a>
+      <a class="hang-tag" href="gst-calculator.html">🧮 GST Calculator</a>
+      <a class="hang-tag" href="calculator.html">Browse all calculators →</a>
+    </div>
+  </section>
+</main>
+
+<div id="footer"></div>
+
+<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x mb-4" style="z-index:1080;">
+  <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.3 4.3L2.6 18a1.9 1.9 0 0 0 1.6 2.9h15.6a1.9 1.9 0 0 0 1.6-2.9L13.7 4.3a1.9 1.9 0 0 0-3.4 0z" stroke-linejoin="round"/></svg>
+      <span data-toast-text>Message</span>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/jquery.js"></script>
+<script src="/script.js"></script>
+<script>
+  $(function () {
+    $("#footer").load("/footer.html");
+    $("#header-box").load("/header.html");
+  });
+</script>
+<script>
+(function () {
+  "use strict";
+
+  var CURRENCIES = ["USD","EUR","GBP","INR","JPY","AUD","CAD","CHF","CNY","SGD","AED","NZD","ZAR","SEK","NOK","HKD","KRW","MXN","BRL","THB"];
+
+  var amountInput = document.getElementById("curAmount");
+  var fromSelect = document.getElementById("curFrom");
+  var toSelect = document.getElementById("curTo");
+  var convertBtn = document.getElementById("convertBtn");
+  var swapBtn = document.getElementById("swapBtn");
+  var errorEl = document.getElementById("curError");
+  var resultBlock = document.getElementById("curResultBlock");
+  var resultOut = document.getElementById("curResultOut");
+  var resultLbl = document.getElementById("curResultLbl");
+  var metaEl = document.getElementById("curMeta");
+
+  CURRENCIES.forEach(function (code) {
+    var opt1 = document.createElement("option");
+    opt1.value = code; opt1.textContent = code;
+    fromSelect.appendChild(opt1);
+    var opt2 = document.createElement("option");
+    opt2.value = code; opt2.textContent = code;
+    toSelect.appendChild(opt2);
+  });
+  fromSelect.value = "USD";
+  toSelect.value = "INR";
+
+  function showErr(msg) {
+    errorEl.textContent = msg;
+    errorEl.style.display = msg ? "block" : "none";
+  }
+
+  function setBusy(busy) {
+    convertBtn.disabled = busy;
+    convertBtn.textContent = busy ? "Converting…" : "Go";
+  }
+
+  function convert() {
+    var amount = parseFloat(amountInput.value);
+    var from = fromSelect.value;
+    var to = toSelect.value;
+
+    if (!amount || amount <= 0) {
+      showErr("Enter a valid amount greater than 0.");
+      return;
+    }
+    if (from === to) {
+      showErr("");
+      resultOut.textContent = amount.toLocaleString() + " " + to;
+      resultLbl.textContent = amount + " " + from + " = " + amount + " " + to;
+      metaEl.textContent = "Same currency selected on both sides.";
+      resultBlock.style.display = "block";
+      return;
+    }
+
+    showErr("");
+    setBusy(true);
+    resultBlock.style.display = "none";
+
+    var url = "https://api.frankfurter.app/latest?amount=" + encodeURIComponent(amount) + "&from=" + encodeURIComponent(from) + "&to=" + encodeURIComponent(to);
+
+    fetch(url)
+      .then(function (res) {
+        if (!res.ok) throw new Error("Request failed (" + res.status + ")");
+        return res.json();
+      })
+      .then(function (data) {
+        var rate = data.rates && data.rates[to];
+        if (typeof rate !== "number") throw new Error("No rate returned for " + to + ".");
+
+        resultOut.textContent = rate.toLocaleString(undefined, { maximumFractionDigits: 4 }) + " " + to;
+        resultLbl.textContent = amount.toLocaleString() + " " + from + " =";
+        metaEl.textContent = "Rate date: " + data.date + " · 1 " + from + " = " + (rate / amount).toFixed(6) + " " + to + " · via frankfurter.app (ECB reference rates)";
+        resultBlock.style.display = "block";
+      })
+      .catch(function (e) {
+        showErr("Couldn't fetch live rates — " + (e && e.message ? e.message : "check your connection and try again.") + " If your network blocks external requests, this tool won't be able to reach the rates API.");
+      })
+      .finally(function () {
+        setBusy(false);
+      });
+  }
+
+  convertBtn.addEventListener("click", convert);
+  amountInput.addEventListener("keydown", function (e) { if (e.key === "Enter") convert(); });
+  swapBtn.addEventListener("click", function () {
+    var tmp = fromSelect.value;
+    fromSelect.value = toSelect.value;
+    toSelect.value = tmp;
+    convert();
+  });
+
+  convert();
+
+})();
+</script>
+</body>
+</html>
